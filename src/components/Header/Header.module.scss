@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,400;1,500&display=swap');
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: 'Open Sans';
+    font-weight: 500;
+    align-items: center;
+    ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 40%;
+        li {
+            font-size: 20px;
+        }
+    }
+    .logo{
+        img {
+            width: 70px;
+            height: 70px;
+        }
+        padding: 20px;
+    }
+    .left {
+
+    }
+    .right {
+        
+    }
+}
