@@ -6,12 +6,12 @@ const Header = () => {
     return (<div className="container">
         <nav className={s.navbar}>
             <ul className={s.left}>
-                <li>Головна</li>
+                <li className={s.active}>Головна</li>
                 <li>Про нас</li>
                 <li>Партнери</li>
             </ul>
             <div className={s.logo}>
-                <img src={logo} alt="" />
+                <img src={logo} alt="logo" />
             </div>
             <ul className={s.right}>
                 <li>Асортимент</li>

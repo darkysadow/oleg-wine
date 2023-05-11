@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,400;1,500&display=swap');
+$licolor: black;
 
 .navbar {
     display: flex;
@@ -6,16 +6,56 @@
     justify-content: space-between;
     font-family: 'Open Sans';
     font-weight: 500;
+    height: 10vh;
     align-items: center;
     ul {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         width: 40%;
+        .active{
+            position: relative;
+            &::after {
+                content: '';
+                position: absolute;
+                width: 80%;
+                height: 1px;
+                background-color: black;
+                left: 10%;
+                bottom: -5px;
+            }
+        }
         li {
             font-size: 20px;
+            transition: .3s;
+            color: $licolor;
+            position: relative;
+            &::before {
+                content: '';
+                position: absolute;
+                width: 80%;
+                transform: scaleX(0);
+                height: .5px;
+                background-color: black;
+                left: 10%;
+                bottom: -5px;
+                transition: transform 0.3s ease;
+                
+            }
+            &:hover {
+                &::before {
+                    transform: scaleX(1);
+                    transition: transform 0.3s ease;
+                }
+            }
+            
+        }
+        li:hover{
+            transition: .3s;
+
         }
     }
+    
     .logo{
         img {
             width: 70px;
