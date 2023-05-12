@@ -1,0 +1,15 @@
+.quoteBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .quote {
+        width: 100%;
+        padding: 15px 50px;
+        background-color:  rgba(235, 244, 252, 0.76);
+        text-align: center;
+        line-height: 30px;
+        font-size: 20px;
+        border-radius: 20px;
+    }
+}

@@ -1,15 +1,64 @@
-.quoteBlock {
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@1,400;1,500&display=swap');
+
+.aboutUs {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 75vh;
-    .quote {
+    &Block{
+        height: 95%;
         width: 100%;
-        padding: 15px 50px;
         background-color:  rgba(235, 244, 252, 0.76);
-        text-align: center;
-        line-height: 30px;
-        font-size: 20px;
         border-radius: 20px;
+        padding: 20px;
+        display: flex;
+        flex-direction: row;
+        flex: 0 0 100%;
+        justify-content: space-between;
+        
     }
+    &Left{
+        display: flex;
+        flex: 0 0 49%;
+        flex-direction: column;
+        font-family: "Cormorant Infant";
+        gap: 20px;
+        font-size: 25px;
+        letter-spacing: 0.5px;
+        padding: 0 0 0 25px;
+        justify-content: space-evenly;
+        @media (max-width: 1182px) {
+            font-size: 20px;
+            h2 {
+                font-size: 20px;
+            }
+        }
+        @media (max-width: 992px) {
+            flex: 0 0 59%;
+        }
+        
+        h2 {
+            font-weight: 600;
+            font-size: 28px;
+        }
+        p {
+            line-height: 35px;
+            @media (max-width: 992px) {
+                line-height: 22px;
+            }
+        }
+    }
+    &Right{
+        display: flex;
+        flex: 0 0 49%;
+        justify-content: center;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        @media (max-width: 992px) {
+            flex: 0 0 39%;
+        }
+    }
+
 }

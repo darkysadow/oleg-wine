@@ -1,0 +1,30 @@
+.store {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &Block {
+        height: 85%;
+        width: 100%;
+        background-color: rgba(235, 244, 252, 0.406);
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: row;
+        white-space: nowrap;
+        overflow: auto;
+        gap: 20px;
+        &:hover {
+            overflow-x: scroll;
+        }
+        &::-webkit-scrollbar {
+            background-color: transparent;
+            height: 0.4em;
+            padding: 0 10px;
+            background-clip: padding-box;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: #fff;
+            border-radius: 10px;
+        }
+    }
+}
