@@ -13,23 +13,7 @@ $licolor: black;
         flex-direction: row;
         justify-content: space-between;
         width: 40%;
-        .active{
-            position: relative;
-            &::after {
-                content: '';
-                position: absolute;
-                width: 80%;
-                height: 1px;
-                background-color: black;
-                left: 10%;
-                bottom: -5px;
-            }
-            &:hover{
-                &::before {
-                    transform: scaleX(0)
-                }
-            }
-        }
+        
         li {
             font-size: 20px;
             transition: .3s;
@@ -54,6 +38,7 @@ $licolor: black;
                     transition: transform 0.3s ease;
                 }
             }
+            
             
         }
         li:hover{

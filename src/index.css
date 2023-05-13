@@ -14,3 +14,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.active {
+  position: relative;
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  width: 80%;
+  height: 1px;
+  background-color: black;
+  left: 10%;
+  bottom: -3px;
+}
+
+.active:hover::after {
+  transform: scaleX(0);
+}

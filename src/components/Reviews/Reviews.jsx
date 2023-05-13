@@ -2,21 +2,23 @@ import React from "react";
 import s from './Reviews.module.scss';
 import photo from './../../img/review.jpg';
 import Buttons from "../Buttons/Buttons";
+import { useNavigate } from "react-router-dom";
 
 const Reviews = () => {
-    const consoleLog = (text) => {
-        console.log(text)
+    const navigate = useNavigate();
+    const goto = (text) => {
+        navigate(text)
     }
     const buttonsProps = [
         {
             id: 1,
             title: 'Контакти',
-            actionByClick: () => consoleLog("Перехід на Контакти")
+            actionByClick: () => goto("/contacts")
         },
         {
             id: 2,
             title: 'Back',
-            actionByClick: () => consoleLog('Назад')
+            actionByClick: () => goto('/partners')
         } 
     ]
     return(

@@ -4,21 +4,23 @@ import wine from './../../img/wine.png';
 import grape from './../../img/grape.png';
 import dweller from './../../img/dweller.png';
 import Buttons from "../Buttons/Buttons";
+import { useNavigate } from "react-router-dom";
 
 const Assortment = () => {
-    const consoleLog = (text) => {
-        console.log(text)
+    const navigate = useNavigate();
+    const goto = (text) => {
+        navigate(text)
     }
     const buttonsProps = [
         {
             id: 1,
             title: 'Наші партнери',
-            actionByClick: () => consoleLog("Перехід на Наші партнери")
+            actionByClick: () => goto("/partners")
         },
         {
             id: 2,
             title: 'Back',
-            actionByClick: () => consoleLog('Назад')
+            actionByClick: () => goto('/aboutUs')
         } 
     ]
     return(

@@ -2,21 +2,23 @@ import React from "react";
 import s from './AboutUs.module.scss';
 import image from './../../img/aboutUs.jpg';
 import Buttons from "../Buttons/Buttons";
+import { useNavigate } from "react-router-dom";
 
 const AboutUs = () => {
-    const consoleLog = (text) => {
-        console.log(text)
+    const navigate = useNavigate();
+    const goto = (text) => {
+        navigate(text)
     }
     const buttonsProps = [
         {
             id: 1,
             title: 'Асортимент',
-            actionByClick: () => consoleLog("Перехід на Асортимент")
+            actionByClick: () => goto("/assortment")
         },
         {
             id: 2,
             title: 'Back',
-            actionByClick: () => consoleLog('Назад')
+            actionByClick: () => goto('/')
         } 
     ]
     return(

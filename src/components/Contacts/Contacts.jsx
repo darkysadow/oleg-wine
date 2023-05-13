@@ -4,16 +4,18 @@ import logo from './../../img/logo.png';
 import Buttons from "../Buttons/Buttons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram, faTiktok } from "@fortawesome/free-brands-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const Contacts = () => {
-    const consoleLog = (text) => {
-        console.log(text)
+    const navigate = useNavigate();
+    const goto = (text) => {
+        navigate(text)
     }
     const buttonsProps = [
         {
             id: 1,
             title: 'Back',
-            actionByClick: () => consoleLog('Назад')
+            actionByClick: () => goto('/reviews')
         } 
     ]
     return(

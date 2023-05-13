@@ -4,21 +4,23 @@ import winetime from './../../img/winetime.png';
 import okwine from './../../img/okwine.png';
 import worldwine from './../../img/worldwine.png';
 import Buttons from "../Buttons/Buttons";
+import { useNavigate } from "react-router-dom";
 
 const Partners = () => {
-    const consoleLog = (text) => {
-        console.log(text)
+    const navigate = useNavigate();
+    const goto = (text) => {
+        navigate(text)
     }
     const buttonsProps = [
         {
             id: 1,
             title: 'Відгуки про нас',
-            actionByClick: () => consoleLog("Перехід на Відгуки")
+            actionByClick: () => goto("/reviews")
         },
         {
             id: 2,
             title: 'Back',
-            actionByClick: () => consoleLog('Назад')
+            actionByClick: () => goto('/assortment')
         } 
     ]
     return (

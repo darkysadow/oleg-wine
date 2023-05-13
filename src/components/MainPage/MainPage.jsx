@@ -1,16 +1,18 @@
 import React from "react";
 import s from './MainPage.module.scss';
 import Buttons from "../Buttons/Buttons";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
-    const consoleLog = (text) => {
-        console.log(text)
+    const navigate = useNavigate();
+    const goto = (text) => {
+        navigate(text)
     }
     const buttonsProps = [
         {
             id: 1,
             title: 'Про нас',
-            actionByClick: () => consoleLog("Перехід на Про нас")
+            actionByClick: () => goto("/aboutUs")
         }/* ,
         {
             id: 2,
