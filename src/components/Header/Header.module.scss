@@ -1,5 +1,26 @@
 $licolor: black;
 
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10vh;
+    z-index: 50;
+
+    &Body {
+        position: relative;
+    }
+
+    &Burger {
+        display: none;
+    }
+
+    &logo_adapted {
+        display: none;
+    }
+}
+
 .navbar {
     display: flex;
     flex-direction: row;
@@ -8,19 +29,21 @@ $licolor: black;
     font-weight: 500;
     height: 10vh;
     align-items: center;
+
     ul {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         width: 40%;
-        
+
         li {
             font-size: 20px;
             transition: .3s;
             color: $licolor;
             position: relative;
             cursor: pointer;
-            &::before {
+
+            a::before {
                 content: '';
                 position: absolute;
                 width: 80%;
@@ -30,34 +53,167 @@ $licolor: black;
                 left: 10%;
                 bottom: -5px;
                 transition: transform 0.3s ease;
-                
+
             }
+
             &:hover {
-                &::before {
+                a::before {
                     transform: scaleX(1);
                     transition: transform 0.3s ease;
                 }
             }
-            
-            
+
+
         }
-        li:hover{
+
+        li:hover {
             transition: .3s;
 
         }
     }
-    
-    .logo{
+
+    .logo {
         img {
             width: 70px;
             height: 70px;
         }
+
         padding: 20px;
     }
-    .left {
+
+    .left {}
+
+    .right {}
+}
+
+@media (max-width: 991px) {
+    .navbar{
+        ul {
+            li {
+                font-size: 18px;
+            }
+        }
+        .logo {
+            img {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    }
+    
+}
+
+@media (max-width: 767px) {
+    .header {
+        &Body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &logo_adapted {
+            flex: 0 0 40px;
+            display: block;
+
+            img {
+                width: 50px;
+                height: 50px;
+            }
+
+        }
+
+        &Logo_main {
+            display: none;
+        }
+
+        &Burger {
+            display: block;
+            position: relative;
+            width: 30px;
+            height: 19.9px;
+            position: relative;
+            z-index: 3;
+
+            span {
+                position: absolute;
+                background-color: #000000;
+                position: absolute;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                top: 9px;
+                transition: all 0.3s ease 0s;
+            }
+
+            &::before,
+            &::after {
+                content: '';
+                background-color: #000000;
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                left: 0;
+                transition: all 0.3s ease 0s;
+            }
+
+            &::before {
+                top: 0;
+            }
+
+            &::after {
+                bottom: 0;
+            }
+
+            &.active {
+                span {
+                    transform: scale(0);
+                }
+
+                &::before {
+                    transform: rotate(45deg);
+                    top: 9px;
+                }
+
+                &::after {
+                    transform: rotate(-45deg);
+                    bottom: 9px;
+                }
+            }
+        }
 
     }
-    .right {
-        
+
+    .navbar {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        transition: all 0.3s ease 0s;
+        background-color: rgba(235, 244, 252, 1);
+        padding: 70px 10px 20px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+        margin: 0 auto;
+
+        &.active {
+            right: 0;
+        }
+
+        .left,
+        .right {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            li {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
     }
+
 }

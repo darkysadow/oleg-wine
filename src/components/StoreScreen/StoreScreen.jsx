@@ -2,6 +2,7 @@ import React from "react";
 import s from './StoreScreen.module.scss';
 import Buttons from "../Buttons/Buttons";
 import StoreItem from "./StoreItem/StoreItem";
+import SmoothRender from 'react-smooth-render';
 
 const StoreScreen = () => {
     const consoleLog = (text) => {

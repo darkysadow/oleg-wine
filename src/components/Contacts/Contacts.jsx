@@ -5,6 +5,7 @@ import Buttons from "../Buttons/Buttons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram, faTiktok } from "@fortawesome/free-brands-svg-icons";
 import { useNavigate } from "react-router-dom";
+import SmoothRender from 'react-smooth-render';
 
 const Contacts = () => {
     const navigate = useNavigate();
@@ -68,6 +69,7 @@ const Contacts = () => {
             </div>
             <Buttons propArr={buttonsProps} />
         </div>
+
     )
 }
 

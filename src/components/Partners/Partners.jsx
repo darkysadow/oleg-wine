@@ -5,6 +5,7 @@ import okwine from './../../img/okwine.png';
 import worldwine from './../../img/worldwine.png';
 import Buttons from "../Buttons/Buttons";
 import { useNavigate } from "react-router-dom";
+import SmoothRender from 'react-smooth-render';
 
 const Partners = () => {
     const navigate = useNavigate();

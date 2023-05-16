@@ -3,6 +3,7 @@ import s from './Reviews.module.scss';
 import photo from './../../img/review.jpg';
 import Buttons from "../Buttons/Buttons";
 import { useNavigate } from "react-router-dom";
+import SmoothRender from 'react-smooth-render';
 
 const Reviews = () => {
     const navigate = useNavigate();

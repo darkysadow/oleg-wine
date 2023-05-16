@@ -5,6 +5,8 @@ import grape from './../../img/grape.png';
 import dweller from './../../img/dweller.png';
 import Buttons from "../Buttons/Buttons";
 import { useNavigate } from "react-router-dom";
+import SmoothRender from 'react-smooth-render';
+
 
 const Assortment = () => {
     const navigate = useNavigate();
@@ -24,6 +26,7 @@ const Assortment = () => {
         } 
     ]
     return(
+
         <div className="container">
             <div className={`${s.assortment} screenHeight`}>
                 <div className={s.assortmentBlock}>
@@ -43,6 +46,7 @@ const Assortment = () => {
             </div>
             <Buttons propArr={buttonsProps}/>
         </div>
+
     );
 
 }
