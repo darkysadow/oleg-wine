@@ -14,6 +14,11 @@ $fontfamily: "Arial";
 	margin: 10vh 0 0 0;
 	height: 75vh;
 }
+ @media (max-width: 420px) {
+	.screenHeight {
+		height: 67vh;
+	}
+ }
 
 .wrapper {
 	width: 100%;
