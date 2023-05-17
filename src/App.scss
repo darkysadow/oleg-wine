@@ -1,5 +1,38 @@
 //<IMPORTS>============
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,400;1,500&display=swap');
+@font-face {
+	font-family: 'Open Sans';
+	src: url('./fonts/Open_Sans/static/OpenSans-Italic.woff2') format('woff2');
+	src: url('./fonts/Open_Sans/static/OpenSans-Italic.woff') format('woff');
+	src: url('./fonts/Open_Sans/static/OpenSans-Italic.ttf') format('truetype');
+	font-style: italic;
+	font-weight: 400;
+}
+@font-face {
+	font-family: 'Open Sans';
+	src: url('./fonts/Open_Sans/static/OpenSans-Regular.woff2') format('woff2');
+	src: url('./fonts/Open_Sans/static/OpenSans-Regular.woff') format('woff');
+	src: url('./fonts/Open_Sans/static/OpenSans-Regular.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 400;
+}
+@font-face {
+	font-family: 'Open Sans';
+	src: url('./fonts/Open_Sans/static/OpenSans-MediumItalic.woff2') format('woff2');
+	src: url('./fonts/Open_Sans/static/OpenSans-MediumItalic.woff') format('woff');
+	src: url('./fonts/Open_Sans/static/OpenSans-MediumItalic.ttf') format('truetype');
+	font-style: italic;
+	font-weight: 500;
+}
+@font-face {
+	font-family: 'Open Sans';
+	src: url('./fonts/Open_Sans/static/OpenSans-Medium.woff2') format('woff2');
+	src: url('./fonts/Open_Sans/static/OpenSans-Medium.woff') format('woff');
+	src: url('./fonts/Open_Sans/static/OpenSans-Medium.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 500;
+}
+
 
 //<VARIABLES>==========
 $minwidth: 320px;
