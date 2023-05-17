@@ -28,3 +28,11 @@
         }
     }
 }
+
+@media (max-width: 767px) {
+    .store {
+        &Block {
+            flex-direction: column;
+        }
+    }
+}

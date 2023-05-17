@@ -62,3 +62,61 @@
     }
 
 }
+
+@media (max-width: 631px) {
+    .aboutUs {
+        &Left {
+            font-size: 15px;
+        }
+    }
+}
+
+@media (max-width: 518px) {
+    .aboutUs {
+        &Block {
+            flex-direction: column;
+            overflow-y: scroll;
+            gap: 40px;
+        }
+        &Right {
+            img {
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+        }
+        &Left {
+            padding: 0;
+            p {
+                line-height: 29px;
+            }
+        }
+    }
+}
+
+@media (max-width: 443px) {
+    .aboutUs {
+        &Left {
+            padding: 0;
+            h2 {
+                font-size: 19px;
+                text-align: center;
+            }
+            p {
+                text-indent: 20px;
+                font-size: 17px;
+                
+            }
+        }
+        &Right {
+        }
+    }
+}
+
+@media (max-width: 376px) {
+    .aboutUs {
+        &Left {
+            p {
+            }
+        }
+    }
+}

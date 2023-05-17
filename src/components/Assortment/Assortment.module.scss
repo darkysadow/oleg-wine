@@ -57,3 +57,21 @@
         font-size: 30px;
     }
 }
+
+@media (max-width: 767px) {
+    .assortment {
+        &Block {
+            flex-direction: column;
+            overflow-y: auto;
+            gap: 30px;
+            background-color: rgba(235, 244, 252, 0.76);
+            padding: 10px;
+            border-radius: 10px;
+        }
+    }
+    .card {
+        flex: 0 0 100%;
+        background-color: rgba(235, 244, 252, 0.432);
+        max-height: 25vh;
+    }
+}
