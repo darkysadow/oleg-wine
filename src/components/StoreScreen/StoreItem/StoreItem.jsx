@@ -3,6 +3,9 @@ import s from './StoreItem.module.scss';
 import wine from './../../../img/wine.png';
 import grape from './../../../img/grape.png';
 import dweller from './../../../img/dweller.png';
+import { connect } from "react-redux";
+import { getBasket } from "../../../redux/basket-selectors";
+import { addGoodToBasket } from "../../../redux/basket-reducer";
 
 const StoreItem = (props) => {
     const checkNominal = () => {
@@ -16,8 +19,12 @@ const StoreItem = (props) => {
             }
         }
     }
+    const generateRandomCount = () => {
+        return Math.ceil(Math.abs(Math.random() * 10))
+    }
+
     return (
-        <div className={s.storeItem}>
+        <div className={s.storeItem} onClick={() => props.addGoodToBasket(props.item.title, generateRandomCount(), props.item.price)}>
             <div className={s.storeItemImage}>
                 {props.item.category === 'wine' && <img src={wine} alt="" />}
                 {props.item.category === 'grape' && <img src={grape} alt="" />}
@@ -33,4 +40,8 @@ const StoreItem = (props) => {
     );
 }
 
-export default StoreItem;
+const mapStateToProps = (state) => ({
+    basket: getBasket(state)
+})
+
+export default connect(mapStateToProps, {addGoodToBasket})(StoreItem);
