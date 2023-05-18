@@ -2,9 +2,9 @@ import React from "react";
 import s from './StoreScreen.module.scss';
 import Buttons from "../Buttons/Buttons";
 import StoreItem from "./StoreItem/StoreItem";
-import SmoothRender from 'react-smooth-render';
+import withRouter from "../HOC/withRouter/withRouter";
 
-const StoreScreen = () => {
+const StoreScreen = (props) => {
     const consoleLog = (text) => {
         console.log(text)
     }
@@ -90,11 +90,13 @@ const StoreScreen = () => {
         {
             id: 11,
             title: "Вікторія",
-            category: 'dweller',
+            category: 'dwellers',
             price: 30,
             description: 'Їбейший живець'
         }
     ]
+
+    const goodCategory = props.router.params.goodCategory;
     return (
         <div className="container">
             <div className={`${s.store} screenHeight`}>
@@ -106,7 +108,7 @@ const StoreScreen = () => {
                         behavior: 'auto',
                     });
                 }}>
-                    {items.map(item => (<StoreItem key={item.id} item={item}/>))}
+                    {items.map(item => (!goodCategory ? <StoreItem key={item.id} item={item}/> : item.category === goodCategory && <StoreItem key={item.id} item={item}/>))}
                 </div>
             </div>
             <Buttons propArr={buttonsProps} />
@@ -114,4 +116,4 @@ const StoreScreen = () => {
     );
 }
 
-export default StoreScreen;
+export default withRouter(StoreScreen);

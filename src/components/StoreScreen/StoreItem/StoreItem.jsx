@@ -2,7 +2,7 @@ import React from "react";
 import s from './StoreItem.module.scss';
 import wine from './../../../img/wine.png';
 import grape from './../../../img/grape.png';
-import dweller from './../../../img/dweller.png';
+import dwellers from './../../../img/dweller.png';
 import { connect } from "react-redux";
 import { getBasket } from "../../../redux/basket-selectors";
 import { addGoodToBasket } from "../../../redux/basket-reducer";
@@ -28,7 +28,7 @@ const StoreItem = (props) => {
             <div className={s.storeItemImage}>
                 {props.item.category === 'wine' && <img src={wine} alt="" />}
                 {props.item.category === 'grape' && <img src={grape} alt="" />}
-                {props.item.category === 'dweller' && <img src={dweller} alt="" />}
+                {props.item.category === 'dwellers' && <img src={dwellers} alt="" />}
             </div>
             <div className={s.storeItemInfo}>
                 <p>{props.item.title}</p>

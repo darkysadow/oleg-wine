@@ -22,6 +22,7 @@ function App() {
           <Route path="/store" element={<StoreScreen />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/assortment" element={<Assortment />} />
+          <Route path="/store/:goodCategory" element={<StoreScreen />} />
         </Routes>
     </div>
   );

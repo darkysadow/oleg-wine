@@ -5,8 +5,6 @@ import grape from './../../img/grape.png';
 import dweller from './../../img/dweller.png';
 import Buttons from "../Buttons/Buttons";
 import { useNavigate } from "react-router-dom";
-import SmoothRender from 'react-smooth-render';
-
 
 const Assortment = () => {
     const navigate = useNavigate();
@@ -30,15 +28,15 @@ const Assortment = () => {
         <div className="container">
             <div className={`${s.assortment} screenHeight`}>
                 <div className={s.assortmentBlock}>
-                    <div className={`${s.wine} ${s.card}`} onClick={() => console.log('Перехід на каталог вина')}>
+                    <div className={`${s.wine} ${s.card}`} onClick={() => goto('/store/wine')}>
                         <img src={wine} alt="ВИНО" />
                         <p>вино</p>
                     </div>
-                    <div className={`${s.grape} ${s.card}`} onClick={() => console.log('Перехід на каталог винограду')}>
+                    <div className={`${s.grape} ${s.card}`} onClick={() => goto('/store/grape')}>
                         <img src={grape} alt="ВИНОГРАД" />
                         <p>виноград</p>
                     </div>
-                    <div className={`${s.dweller} ${s.card}`} onClick={() => console.log('Перехід на каталог живців')}>
+                    <div className={`${s.dweller} ${s.card}`} onClick={() => goto('/store/dwellers')}>
                         <img src={dweller} alt="ЖИВЦІ" />
                         <p>живці</p>
                     </div>
