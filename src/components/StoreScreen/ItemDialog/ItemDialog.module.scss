@@ -1,0 +1,153 @@
+.dialog {
+
+    &Header {
+        padding: 10px;
+        text-align: center;
+    }
+
+    &Content {
+        max-width: 320px;
+
+        &::-webkit-scrollbar {
+            background-color: transparent;
+            height: 0.4em;
+            padding: 0 10px;
+            width: 0.4em;
+            background-clip: padding-box;
+
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #59595989;
+            border-radius: 10px;
+        }
+    }
+
+    .good {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .nameImage {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            .image {
+                img {
+                    width: 100px;
+                    height: 100px;
+                    object-fit: contain;
+                }
+            }
+        }
+
+        .description {
+            p {
+                border: 1px solid #59595925;
+                padding: 10px;
+                display: none;
+                border-bottom-right-radius: 10px;
+                border-bottom-left-radius: 10px;
+                border-top: none;
+                transition: .3s;
+            }
+
+            .active {
+                display: block;
+                transition: .3s;
+            }
+
+            h5 {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                align-items: center;
+                border: 1px solid #59595925;
+                border-radius: 10px;
+                padding: 10px;
+
+                &:has(span.active) {
+                    border-bottom: none;
+                    border-bottom-left-radius: 0px;
+                    border-bottom-right-radius: 0px;
+                }
+
+                span {
+                    position: relative;
+
+                    &::before {
+                        content: "\A";
+                        border-style: solid;
+                        border-width: 0.3em 0.5em 0.3em 0;
+                        border-color: transparent #595959a1 transparent transparent;
+                        position: absolute;
+                        transform: rotate(90deg) translateX(-50%);
+                        right: 0.5em;
+
+                    }
+
+                }
+
+                .active {
+                    &::before {
+                        transform: rotate(-90deg) translateX(50%);
+                    }
+                }
+
+                .active {}
+            }
+        }
+    }
+
+    .buy {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        
+        .calcBlock {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            .count {
+                input {
+                    width: 100px;
+                    border: 1px solid #59595925;
+                    line-height: 30px;
+                    padding: 0 0 0 10px;
+                    &::-webkit-inner-spin-button,
+                    &::-webkit-outer-spin-button {
+                        opacity: 1;
+    
+                    }
+                    &:focus {
+                        border-color: black;
+                    }
+                }
+            }
+    
+            .price {}
+        }
+        
+
+        .sum {
+            padding: 20px 10px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+            &::before {
+                position: absolute;
+                content: '';
+                width: 98%;
+                height: 1px;
+                background-color: #59595925;
+                top: 0;
+                left: 1%;
+                transform: translate(-50% -50%);
+            }
+        }
+    }
+}
