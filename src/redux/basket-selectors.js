@@ -3,6 +3,12 @@ export const getBasket = (state) => {
 }
 
 export const getGoodsCountCart = (state) => {
-    console.log(state.basketReducer.basket)
     return state.basketReducer.basket.length
+}
+
+export const getBasketGoodsId = (state) => {
+    let arr = []
+    arr = state.basketReducer.basket.map(good => good.goodId)
+    window.ids = arr
+    return arr
 }

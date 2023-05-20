@@ -24,10 +24,33 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        width: 100%;
         p {
             font-family: "Open Sans";
             font-weight: 500;
             line-height: 30px;
+        }
+        .control{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &Button {
+                width: 80%;
+                text-align: center;
+                line-height: 35px;
+                
+                color: white;
+                text-transform: uppercase;
+                letter-spacing: 0.6px;
+                font-weight: 500;
+            }
+        }
+        .deleteButton {
+            background-color: rgb(181, 29, 29);
+        }
+        .addButton {
+            background-color: #3f567e;
         }
     }
     

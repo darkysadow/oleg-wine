@@ -1,5 +1,6 @@
 //consts
 const ADD_GOOD = 'ADD_GOOD'
+const DELETE_GOOD = 'DELETE_GOOD'
 
 
 //initial state
@@ -20,11 +21,19 @@ let basketReducer = (state = initialState, action) => {
                 ...state,
                 basket: [...state.basket, newGood]
             }
+        case DELETE_GOOD:
+            return {
+                ...state,
+                basket: state.basket.filter(item => item.goodId !== action.goodId)
+            }
+            
+
         default:
             return state;
     }
 }
 
 export const addGoodToBasket = (goodId, count, price) => ({ type: ADD_GOOD, goodId, count, price})
+export const deleteGoodFromBasket = (goodId) => ({type: DELETE_GOOD, goodId})
 
 export default basketReducer;
