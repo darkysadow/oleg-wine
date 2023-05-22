@@ -23,25 +23,29 @@ const StoreItem = (props) => {
         return Math.ceil(Math.abs(Math.random() * 10))
     }
     const toggleGoodInCart = () => {
-        props.ids.includes(props.item.title) ? 
-            props.deleteGoodFromBasket(props.item.title) : 
+        props.ids.includes(props.item.title) ?
+            props.deleteGoodFromBasket(props.item.title) :
             props.addGoodToBasket(props.item.title, generateRandomCount(), props.item.price);
     }
     return (
-        <div className={s.storeItem} onClick={() => {toggleGoodInCart()}}>
-            <div className={s.storeItemImage}>
-                {props.item.category === 'wine' && <img src={wine} alt="" />}
-                {props.item.category === 'grape' && <img src={grape} alt="" />}
-                {props.item.category === 'dwellers' && <img src={dwellers} alt="" />}
+        <div className={s.storeItem} onClick={() => { toggleGoodInCart() }}>
+            <div className={s.storeItemTop}>
+                <div className={s.storeItemImage}>
+                    {props.item.category === 'wine' && <img src={wine} alt="" />}
+                    {props.item.category === 'grape' && <img src={grape} alt="" />}
+                    {props.item.category === 'dwellers' && <img src={dwellers} alt="" />}
+                </div>
+                <div className={s.storeItemInfo}>
+                    <p>{props.item.title}</p>
+                    <p>
+                        {props.item.nominal ? props.item.price + ' ' + props.item.nominal : props.item.price + checkNominal()}
+                    </p>
+                </div>
             </div>
-            <div className={s.storeItemInfo}>
+            <div className={s.storeItemBottom}>
                 <div className={s.control}>
                     {props.ids.includes(props.item.title) ? <div className={`${s.controlButton} ${s.deleteButton}`}>Видалити з кошику</div> : <div className={`${s.controlButton} ${s.addButton}`}>Додати до кошику</div>}
                 </div>
-                <p>{props.item.title}</p>
-                <p>
-                    {props.item.nominal ? props.item.price + ' ' + props.item.nominal : props.item.price + checkNominal()}
-                </p>
             </div>
         </div>
     );
@@ -54,4 +58,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {addGoodToBasket, deleteGoodFromBasket})(StoreItem);
+export default connect(mapStateToProps, { addGoodToBasket, deleteGoodFromBasket })(StoreItem);

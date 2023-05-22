@@ -13,8 +13,8 @@
         white-space: nowrap;
         overflow: auto;
         gap: 20px;
+        overflow-x: scroll;
         &:hover {
-            overflow-x: scroll;
         }
         &::-webkit-scrollbar {
             background-color: transparent;

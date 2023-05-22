@@ -3,16 +3,18 @@ import s from './StoreScreen.module.scss';
 import Buttons from "../Buttons/Buttons";
 import StoreItem from "./StoreItem/StoreItem";
 import withRouter from "../HOC/withRouter/withRouter";
+import { useNavigate } from "react-router-dom";
 
 const StoreScreen = (props) => {
-    const consoleLog = (text) => {
-        console.log(text)
+    const navigate = useNavigate();
+    const goto = (text) => {
+        navigate(text)
     }
     const buttonsProps = [
         {
             id: 1,
             title: 'Back',
-            actionByClick: () => consoleLog('Назад')
+            actionByClick: () => goto(-1)
         }
     ]
 
