@@ -5,10 +5,10 @@ const DELETE_GOOD = 'DELETE_GOOD'
 
 //initial state
 let initialState = {
-    basket: []
+    cart: []
 }
 
-let basketReducer = (state = initialState, action) => {
+let cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_GOOD:
             let newGood = {
@@ -19,12 +19,12 @@ let basketReducer = (state = initialState, action) => {
             }
             return {
                 ...state,
-                basket: [...state.basket, newGood]
+                cart: [...state.cart, newGood]
             }
         case DELETE_GOOD:
             return {
                 ...state,
-                basket: state.basket.filter(item => item.goodId !== action.goodId)
+                cart: state.cart.filter(item => item.goodId !== action.goodId)
             }
             
 
@@ -33,7 +33,7 @@ let basketReducer = (state = initialState, action) => {
     }
 }
 
-export const addGoodToBasket = (goodId, count, price) => ({ type: ADD_GOOD, goodId, count, price})
-export const deleteGoodFromBasket = (goodId) => ({type: DELETE_GOOD, goodId})
+export const addGoodToCart = (goodId, count, price) => ({ type: ADD_GOOD, goodId, count, price})
+export const deleteGoodFromCart = (goodId) => ({type: DELETE_GOOD, goodId})
 
-export default basketReducer;
+export default cartReducer;

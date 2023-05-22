@@ -4,8 +4,8 @@ import wine from './../../../img/wine.png';
 import grape from './../../../img/grape.png';
 import dwellers from './../../../img/dweller.png';
 import { connect } from "react-redux";
-import { getBasket, getBasketGoodsId } from "../../../redux/basket-selectors";
-import { addGoodToBasket, deleteGoodFromBasket } from "../../../redux/basket-reducer";
+import { getCart, getCartGoodsId } from "../../../redux/cart-selectors";
+import { addGoodToCart, deleteGoodFromCart } from "../../../redux/cart-reducer";
 
 const StoreItem = (props) => {
     const checkNominal = () => {
@@ -23,9 +23,9 @@ const StoreItem = (props) => {
         return Math.ceil(Math.abs(Math.random() * 10))
     }
     const toggleGoodInCart = () => {
-        props.ids.includes(props.item.title) ?
-            props.deleteGoodFromBasket(props.item.title) :
-            props.addGoodToBasket(props.item.title, generateRandomCount(), props.item.price);
+            props.ids.includes(props.item.title) ?
+            props.deleteGoodFromCart(props.item.title) :
+            props.addGoodToCart(props.item.title, generateRandomCount(), props.item.price);
     }
     return (
         <div className={s.storeItem} onClick={() => { toggleGoodInCart() }}>
@@ -53,9 +53,9 @@ const StoreItem = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        basket: getBasket(state),
-        ids: getBasketGoodsId(state)
+        basket: getCart(state),
+        ids: getCartGoodsId(state)
     }
 }
 
-export default connect(mapStateToProps, { addGoodToBasket, deleteGoodFromBasket })(StoreItem);
+export default connect(mapStateToProps, { addGoodToCart, deleteGoodFromCart })(StoreItem);

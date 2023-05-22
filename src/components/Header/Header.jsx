@@ -3,7 +3,7 @@ import logo from '../../img/logo.png';
 import s from './Header.module.scss';
 import { Link, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { getGoodsCountCart } from "../../redux/basket-selectors";
+import { getGoodsCountCart } from "../../redux/cart-selectors";
 
 const Header = (props) => {
     const [isOpened, setIsOpened] = useState('false')
@@ -33,7 +33,7 @@ const Header = (props) => {
                         <ul className={s.right}>
                             <li><NavLink to='/assortment'>Асортимент</NavLink></li>
                             <li><NavLink to='/contacts'>Контакти</NavLink></li>
-                            <li className={s.goodsCount}><NavLink to='/store'><div className={`${props.count === 0 ? s.goodsCountEmpty : s.goodsCountFilled}`}>{props.count !== 0 && props.count}</div>Кошик</NavLink></li>
+                            <li className={s.goodsCount}><NavLink to='/cart'><div className={`${props.count === 0 ? s.goodsCountEmpty : s.goodsCountFilled}`}>{props.count !== 0 && props.count}</div>Кошик</NavLink></li>
                         </ul>
                     </nav>
                 </div>

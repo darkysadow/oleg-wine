@@ -1,9 +1,9 @@
 import { combineReducers, legacy_createStore as createStore } from "redux";
-import basketReducer from "./basket-reducer";
+import cartReducer from "./cart-reducer";
 
 
 let reducers = combineReducers({
-    basketReducer
+    cartReducer
 })
 
 let store = createStore(reducers)
