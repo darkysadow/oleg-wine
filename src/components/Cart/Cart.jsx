@@ -3,11 +3,11 @@ import s from './Cart.module.scss';
 import { connect } from "react-redux";
 import { getCart, getSumm } from "../../redux/cart-selectors";
 import { updateGoodCount, deleteGoodFromCart } from "../../redux/cart-reducer";
-import { setUserAction } from "../../redux/user-reducer";
+import { setUserAction, setDeleteItem } from "../../redux/user-reducer";
 import CartItem from "./CartItem/CartItem";
 import {useNavigate} from 'react-router-dom';
 import Buttons from "../Buttons/Buttons";
-import { getUserAction } from "../../redux/user-selectors";
+import { getDeleteItem, getUserAction } from "../../redux/user-selectors";
 import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
 
 
@@ -26,7 +26,7 @@ const Cart = (props) => {
                 return "шт"
             }
         } else {
-            return props.nominal
+            return item.nominal
         }
     }
     const buttonsProps = [
@@ -59,7 +59,7 @@ const Cart = (props) => {
                 }}>
                     {props.cart.length === 0 ? 
                         <div className={s.emptyLabel}>В кошику немає жодного товару</div> : 
-                        props.cart.map(item => <CartItem key={item.goodid} title={item.goodId} count={item.count} category={item.category} price={item.price} userAction={props.userAction} updateGoodCount={props.updateGoodCount} deleteGoodFromCart={props.deleteGoodFromCart} setUserAction={props.setUserAction} checkNominal={checkNominal}/>)}
+                        props.cart.map(item => <CartItem key={item.goodid} title={item.goodId} count={item.count} category={item.category} price={item.price} userAction={props.userAction} itemToDelete={props.itemToDelete} updateGoodCount={props.updateGoodCount} deleteGoodFromCart={props.deleteGoodFromCart} setUserAction={props.setUserAction} setDeleteItem={props.setDeleteItem} checkNominal={checkNominal}/>)}
                 </div> 
             </div>
             {props.cart.length === 0 ? <Buttons propArr={[buttonsProps[0]]} /> : <Buttons propArr={buttonsProps} />}
@@ -104,8 +104,9 @@ const mapStateToProps = (state) => {
     return {
         cart: getCart(state),
         summ: getSumm(state),
-        userAction: getUserAction(state)
+        userAction: getUserAction(state),
+        itemToDelete: getDeleteItem(state)
     }
 }
 
-export default connect(mapStateToProps, {updateGoodCount, deleteGoodFromCart, setUserAction})(Cart);
+export default connect(mapStateToProps, {updateGoodCount, deleteGoodFromCart, setUserAction, setDeleteItem})(Cart);

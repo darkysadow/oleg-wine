@@ -6,7 +6,10 @@ import dwellers from './../../../img/dweller.png';
 import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
 
 const CartItem = (props) => {
-    
+    const deleteItem = (id) => {
+        props.setDeleteItem(id)
+        props.setUserAction('delete')
+    }
     const handleChange = (e) => {
         const inputValue = e.target.value;
         
@@ -54,11 +57,11 @@ const CartItem = (props) => {
                     Сума: {props.price * props.count} грн
                 </div>
             </div>
-            <div className={s.cartItemDelete} onClick={() => props.setUserAction('delete')}>
+            <div className={s.cartItemDelete} onClick={() => {deleteItem(props.title);}}>
                 +
             </div>
             <Dialog open={props.userAction === 'delete'}
-                onClose={() => props.setUserAction(undefined)}>
+                onClose={() => {props.setUserAction(undefined); props.setDeleteItem(undefined)}}>
                 <DialogContent>
                     Ви дійсно бажаєте видалити товар з кошику?
                 </DialogContent>
@@ -67,7 +70,8 @@ const CartItem = (props) => {
                         Ні
                     </Button>
                     <Button onClick={() => {
-                        props.deleteGoodFromCart(props.title)
+                        props.deleteGoodFromCart(props.itemToDelete);
+                        props.setDeleteItem(undefined);
                         props.setUserAction(undefined)
                         }}>
                         Так
