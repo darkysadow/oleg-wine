@@ -41,3 +41,48 @@
     padding: 10px;
     border-radius: 10px;
 }
+
+.placeorderDialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &Block {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        overflow-x: scroll;
+        align-items: center;
+    }
+    &Table {
+        border-collapse:collapse;
+        border-spacing:0;
+        th {
+            border-color:black;
+            border-style:solid;
+            border-width:1px;
+            font-size:14px;
+            font-weight: 600;
+            overflow:hidden;
+            padding:10px 5px;
+            word-break:normal;
+        }
+        td {
+            border-color:black;
+            border-style:solid;
+            border-width:1px;
+            font-size:14px;
+            overflow:hidden;
+            padding:10px 5px;
+            word-break:normal;
+        }
+    }
+    &Position {
+        &Title,
+        &Count,
+        &Price,
+        &Summ {
+            text-align:center;
+            vertical-align:top
+        }
+    }
+}

@@ -6,17 +6,7 @@ import dwellers from './../../../img/dweller.png';
 import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
 
 const CartItem = (props) => {
-    const checkNominal = () => {
-        if (!props.nominal) {
-            if (props.category === 'wine') {
-                return "грн/л"
-            } else if (props.category === "grape") {
-                return "грн/кг"
-            } else {
-                return "грн/шт"
-            }
-        }
-    }
+    
     const handleChange = (e) => {
         const inputValue = e.target.value;
         
@@ -58,7 +48,7 @@ const CartItem = (props) => {
             </div>
             <div className={s.cartItemPriceSumm}>
                 <div className={s.cartItemPrice}>
-                    Ціна: {props.price + " " + checkNominal()} 
+                    Ціна: {props.price + " грн/" + props.checkNominal(props)} 
                 </div>
                 <div className={s.cartItemSumm}>
                     Сума: {props.price * props.count} грн
