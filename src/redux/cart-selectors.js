@@ -12,3 +12,13 @@ export const getCartGoodsId = (state) => {
     window.ids = arr
     return arr
 }
+
+export const getSumm = (state) => {
+    if (state.cartReducer.cart) {
+        let summ = 0
+        for (let i = 0; i < state.cartReducer.cart.length; i++) {
+            summ += state.cartReducer.cart[i].count * state.cartReducer.cart[i].price
+        }
+        return summ;
+    }
+}

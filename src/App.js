@@ -9,6 +9,7 @@ import AboutUs from './components/AboutUs/AboutUs';
 import MainPage from './components/MainPage/MainPage';
 import { Route, Router, Routes } from 'react-router-dom';
 import ItemDialog from './components/StoreScreen/ItemDialog/ItemDialog';
+import Cart from './components/Cart/Cart';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/assortment" element={<Assortment />} />
           <Route path="/store/:goodCategory" element={<StoreScreen />} />
           <Route path="/dialog" element={<ItemDialog />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
     </div>
   );

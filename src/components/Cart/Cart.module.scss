@@ -1,0 +1,43 @@
+.cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    &Block {
+        height: 85%;
+        width: 100%;
+        background-color: rgba(235, 244, 252, 0.406);
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+        overflow: auto;
+        gap: 20px;
+        &Empty {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(235, 244, 252, 0.406);
+            height: 85%;
+            width: 100%;
+        }
+    }
+    &Summ {
+        position: absolute;
+        bottom: 14.5px;
+        right: 10px;
+        background-color: rgba(235, 244, 252, 0.406);
+        line-height: 30px;   
+        padding: 0 10px; 
+        color: #fff;
+    }
+    
+}
+
+.emptyLabel {
+    color: #000;
+    background-color: rgba(235, 244, 252, 0.7);
+    padding: 10px;
+    border-radius: 10px;
+}

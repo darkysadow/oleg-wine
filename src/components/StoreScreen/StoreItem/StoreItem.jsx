@@ -25,7 +25,7 @@ const StoreItem = (props) => {
     const toggleGoodInCart = () => {
             props.ids.includes(props.item.title) ?
             props.deleteGoodFromCart(props.item.title) :
-            props.addGoodToCart(props.item.title, generateRandomCount(), props.item.price);
+            props.addGoodToCart(props.item.title, generateRandomCount(), props.item.price, props.item.category);
     }
     return (
         <div className={s.storeItem} onClick={() => { toggleGoodInCart() }}>
