@@ -5,3 +5,7 @@ export const getUserAction = (state) => {
 export const getDeleteItem = (state) => {
     return state.userReducer.itemToDelete;
 }
+
+export const getSelectedItem = (state) => {
+    return state.userReducer.selectedItem;
+}

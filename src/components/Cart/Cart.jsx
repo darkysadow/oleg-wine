@@ -2,7 +2,7 @@ import React from "react";
 import s from './Cart.module.scss';
 import { connect } from "react-redux";
 import { getCart, getSumm } from "../../redux/cart-selectors";
-import { updateGoodCount, deleteGoodFromCart } from "../../redux/cart-reducer";
+import { updateGoodCount, deleteGoodFromCart, clearCart } from "../../redux/cart-reducer";
 import { setUserAction, setDeleteItem } from "../../redux/user-reducer";
 import CartItem from "./CartItem/CartItem";
 import {useNavigate} from 'react-router-dom';
@@ -44,10 +44,6 @@ const Cart = (props) => {
     return (
         <div className='container'>
             <div className={`${s.cart} screenHeight`}>
-                {props.cart.length !== 0 &&
-                <div className={s.cartSumm}>
-                    Сума: {props.summ} грн
-                </div>}
                 <div className={props.cart.length === 0 ? `${s.cartBlockEmpty}` : `${s.cartBlock}`} 
                     onWheel={(e) => {
                     const container = e.currentTarget;
@@ -93,7 +89,24 @@ const Cart = (props) => {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => props.setUserAction(undefined)}>Закрити</Button>
-                        <Button>Замовити</Button>
+                        <Button onClick={() => {props.setUserAction('orderForm')}}>Замовити</Button>
+                    </DialogActions>
+            </Dialog>
+            <Dialog
+                open={props.userAction === "orderForm"}
+                onClose={() => props.setUserAction(undefined)}>
+                    <DialogContent></DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => props.setUserAction(undefined)}>Закрити</Button>
+                        <Button onClick={() => props.setUserAction('orderSuccessfull')}>Замовити</Button>
+                    </DialogActions>
+                </Dialog>
+            <Dialog
+                open={props.userAction === "orderSuccessfull"}
+                onClose={() => props.setUserAction(undefined)}>
+                    <DialogContent>Замовлення прийняте!</DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => {props.clearCart(); props.setUserAction(undefined)}}>Закрити</Button>
                     </DialogActions>
             </Dialog>
         </div>
@@ -109,4 +122,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {updateGoodCount, deleteGoodFromCart, setUserAction, setDeleteItem})(Cart);
+export default connect(mapStateToProps, {updateGoodCount, deleteGoodFromCart, setUserAction, setDeleteItem, clearCart})(Cart);
