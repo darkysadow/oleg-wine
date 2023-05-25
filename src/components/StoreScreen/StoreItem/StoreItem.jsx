@@ -13,11 +13,12 @@ import { Button, Dialog, DialogActions, DialogContent, Typography } from "@mui/m
 
 
 const StoreItem = (props) => {
-    /* const [spoilerOpened, setSpoilerOpened] = useState(false)
+    const [spoilerOpened, setSpoilerOpened] = useState(false)
     const [count, setCount] = useState(1)
+
     const toggleSpoiler = () => {
         spoilerOpened === false ? setSpoilerOpened(true) : setSpoilerOpened(false)
-    } */
+    } 
     const checkNominal = () => {
         if (!props.item.nominal) {
             if (props.item.category === 'wine') {
@@ -30,24 +31,25 @@ const StoreItem = (props) => {
         }
     }
 
-    /* const setImage = (item) => {
-        if (item.category === 'wine') {
-            return wine;
-        } else if (item.category === 'grape') {
-            return grape;
-        } else {
-            return dwellers;
+    const setImage = (item) => {
+        if (item.category !== null && item.category !== undefined) {
+            if (item.category === 'wine') {
+                return wine;
+            } else if (item.category === 'grape') {
+                return grape;
+            } else {
+                return dwellers;
+            }
         }
+        
     }
 
     const handleChange = (e) => {
         const inputValue = e.target.value;
-        
-        // Виконуємо валідацію введеного значення
         if (/^\d*$/.test(inputValue) && 1001 > parseInt(inputValue) > 0) {
             setCount(inputValue)
         }
-      }; */
+      }; 
 
     return (
         <div className={s.storeItem}>
@@ -66,20 +68,17 @@ const StoreItem = (props) => {
             </div>
             <div className={s.storeItemBottom}>
                 <div className={s.control}>
-                    {props.ids.includes(props.item.title) ? <div className={`${s.controlButton} ${s.deleteButton}`} onClick={() => props.deleteGoodFromCart(props.item.title)}>Видалити з кошику</div> : <div className={`${s.controlButton} ${s.addButton}`} onClick={() => { props.setSelectedItem(props.item); props.setUserAction('selectCount')}}>Додати до кошику</div>}
+                    {props.ids.includes(props.item.title) ?
+                        <div className={`${s.controlButton} ${s.deleteButton}`} onClick={() => props.deleteGoodFromCart(props.item.title)}>Видалити з кошику</div> :
+                        <div className={`${s.controlButton} ${s.addButton}`} onClick={() => { props.setSelectedItem(props.item); props.setUserAction('selectCount') }}>Додати до кошику</div>}
                 </div>
             </div>
-            {/* {!props.selectedItem && !props.selectedItem.category ?
-                    <div>ПРЕЛОУДЕР</div> :
             <Dialog
-                open={props.selectedItem !== undefined}
+                open={props.selectedItem !== undefined && props.userAction === "selectCount"}
                 onClose={() => {props.setSelectedItem(undefined); props.setUserAction(undefined)}}
                 component='form'
                 className={dialogStyle.dialog}
-                onClick={() => console.log(props.selectedItem.category)}
             >
-                
-                
                 <Typography variant="h5" className={dialogStyle.dialogHeader}>
                     Додати до кошика
                 </Typography>
@@ -87,18 +86,14 @@ const StoreItem = (props) => {
                     <div className={dialogStyle.good}>
                         <div className={dialogStyle.nameImage}>
                             <div className={dialogStyle.image}>
-                                {!props.selectedItem && !props.selectedItem ?
-                                    <img src={grape} />:
-                                    <img src={props.selectedItem.image} alt="[eq" />
-                                }
-                                
+                                <img src={props.selectedItem && setImage(props.selectedItem)} />
                             </div>
                             <div className={dialogStyle.name}>
                                 {props.selectedItem && props.selectedItem.title}
                             </div>
                         </div>
-                        <div className={dialogStyle.description} onClick={toggleSpoiler}>
-                            <h5>Опис <span className={`${spoilerOpened === true ? dialogStyle.active : ''}`}></span></h5>
+                        <div className={dialogStyle.description}>
+                            <h5  onClick={toggleSpoiler}>Опис <span className={`${spoilerOpened === true ? dialogStyle.active : ''}`}></span></h5>
                             <p className={`${spoilerOpened === true ? dialogStyle.active : ''}`}>{props.selectedItem && props.selectedItem.description}</p>
                         </div>
                         <div className={dialogStyle.buy}>
@@ -122,7 +117,6 @@ const StoreItem = (props) => {
                 </DialogActions>
                 
             </Dialog>
-                            }*/}
         </div>
     );
 }
