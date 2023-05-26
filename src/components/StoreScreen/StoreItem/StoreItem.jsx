@@ -9,7 +9,7 @@ import { getCart, getCartGoodsId } from "../../../redux/cart-selectors";
 import { addGoodToCart, deleteGoodFromCart } from "../../../redux/cart-reducer";
 import { setUserAction, setSelectedItem } from "../../../redux/user-reducer";
 import { getSelectedItem, getUserAction } from "../../../redux/user-selectors";
-import { Button, Dialog, DialogActions, DialogContent, Typography } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, TextField, Typography } from "@mui/material";
 
 
 const StoreItem = (props) => {
@@ -99,7 +99,13 @@ const StoreItem = (props) => {
                         <div className={dialogStyle.buy}>
                             <div className={dialogStyle.calcBlock}>
                                 <div className={dialogStyle.count}>
-                                    <input type="number" value={count} placeholder="К-ть" min='1' onChange={(e) => handleChange(e)} />
+                                    <TextField type="number" required value={count} 
+                                    onChange={(e) => setCount(e.target.value)}
+                                    InputProps={{
+                                        inputProps: { 
+                                            max: 1000, min: 1 
+                                        }
+                                    }}/>
                                 </div>
                                 <div className={dialogStyle.price}>
                                     {props.selectedItem && props.selectedItem.price + " грн"}
@@ -112,8 +118,8 @@ const StoreItem = (props) => {
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <Button variant="contained" onClick={() => {props.setSelectedItem(undefined); props.setUserAction(undefined)}}>Закрити</Button>
-                    <Button variant="contained" onClick={() => {props.addGoodToCart(props.selectedItem.title, count, 120, props.selectedItem.category); props.setSelectedItem(undefined); props.setUserAction(undefined)}}>Додати в кошик</Button>
+                    <Button variant="contained" onClick={() => { props.setUserAction(undefined); props.setSelectedItem(undefined);  setCount(1);}}>Закрити</Button>
+                    <Button variant="contained" disabled={!count} onClick={() => {props.addGoodToCart(props.selectedItem.title, count, 120, props.selectedItem.category); props.setSelectedItem(undefined); props.setUserAction(undefined)}}>Додати в кошик</Button>
                 </DialogActions>
                 
             </Dialog>
