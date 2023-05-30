@@ -1,14 +1,18 @@
-import { combineReducers, legacy_createStore as createStore } from "redux";
+import { applyMiddleware, combineReducers, legacy_createStore as createStore } from "redux";
 import cartReducer from "./cart-reducer";
 import userReducer from "./user-reducer";
-
+import adminReducer from "./admin-reducer";
+import goodsReducer from "./goods-reducer";
+import thunk from "redux-thunk";
 
 let reducers = combineReducers({
     cartReducer,
-    userReducer
+    userReducer,
+    adminReducer,
+    goodsReducer,
 })
 
-let store = createStore(reducers)
+let store = createStore(reducers, applyMiddleware(thunk))
 
 window.store = store;
 

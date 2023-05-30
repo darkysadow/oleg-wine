@@ -7,7 +7,7 @@ const CATEGORIES_COLLECTION = 'categories';
 const GOODS_COLLECTION = 'goods';
 
 export function addGood( category, goodName, description, price, available, imgBucketURL, imgURL) {
-    addDoc(collection(db, GOODS_COLLECTION), { goodName, description, price, available, imgBucketURL, imgURL, category, portionNominal });
+    addDoc(collection(db, GOODS_COLLECTION), { goodName, description, price, available, imgBucketURL, imgURL, category });
   }
   
 
@@ -31,7 +31,7 @@ export async function getSelectedCategory(category, setGoods) {
     setGoods(goodsArr)
 }
 
-export async function getAllGoods(setAllGoods, setIsLoadingGoods) {
+export async function getAllGoods() {
     const q = query(collection(db, GOODS_COLLECTION));
     const unsubscribe = onSnapshot(q, async (snapshot) => {
         let goods = [];
@@ -40,18 +40,17 @@ export async function getAllGoods(setAllGoods, setIsLoadingGoods) {
             goods.push({
                 ...good,
                 id: documentSnapshot.id,
-                imageURL: await getDownloadURL(good.imgBucketURL)
+                //imageURL: await getDownloadURL(good.imgBucketURL)
             })
         }
-        setAllGoods(goods);
-        setIsLoadingGoods(false);
+        return goods;
     })
     return unsubscribe;
 }
 
 export function updateGood(docId, available, category, description, goodName, imgBucketURL,
     imgURL, price) {
-    setDoc(doc(db, GOODS_COLLECTION, docId), { available, category, description, dishName, imgBucketURL, imgURL, price });
+    setDoc(doc(db, GOODS_COLLECTION, docId), { available, category, description, goodName, imgBucketURL, imgURL, price });
   }
   
 
