@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { getAllGoods } from "../utilites/firebase/firestore";
 import { db } from "../utilites/firebase/firebase";
 
@@ -67,5 +67,20 @@ export const getGoodsFromFB = () => async (dispatch) => {
       console.log(error);
     }
   };
+
+export const getCategories = () => async (dispatch) => {
+    try {
+        const docRef = doc(db, 'categories', 'categories');
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            console.log(docSnap.data());
+            dispatch(setCategories(docSnap.data().categories));
+        } else {
+            console.log('No such document');
+    }
+    } catch(error) {
+        console.log(error);
+    }
+}
 
 export default goodsReducer;

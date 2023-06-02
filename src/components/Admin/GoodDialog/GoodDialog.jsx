@@ -1,6 +1,6 @@
 import React from "react";
 import s from './GoodDialog.module.scss';
-import { Avatar, Button, Dialog, DialogActions, DialogContent, FormControlLabel, Radio, RadioGroup, Select, Stack, TextField, Typography } from "@mui/material";
+import { Avatar, Button, Dialog, DialogActions, DialogContent, FormControlLabel, MenuItem, Radio, RadioGroup, Select, Stack, TextField, Typography } from "@mui/material";
 import { useEffect } from "react";
 
 
@@ -10,39 +10,35 @@ const GoodDialog = (props) => {
         isEdit = props.edit && Object.keys(props.edit).length !== 0;
         props.showDialog && props.setFormFields(isEdit ? props.edit : props.resetFormGood())
     }, [props.edit, props.showDialog])
-    
+
     const updateFormField = (event, field) => {
-        props.setFormFields(prevState => ({ ...prevState, [field]: event.target.value }))
+        props.setFormField(field, event.target.value)
     }
 
     // Set the relevant fields for receipt image
     const setFileData = (target) => {
         const file = target.files[0];
-        props.setFormFields(prevState => ({ ...prevState, fileName: file.name }));
-        props.setFormFields(prevState => ({ ...prevState, file }));
+        props.setFormField('fileName', file.name)
+        props.setFormField('file', file)
     }
 
     const handleSubmit = () => {
         console.log('Submit');
     }
     const closeDialog = () => {
-        props.setAdminAction(undefined)
+        props.setAdminAction(undefined);
+        props.resetFormGood();
     }
 
     const isSubmitting = () => {
         console.log('isSubmitting');
     }
-
-/*     const isDisabled = () => props.formFields.goodName.length === 0 || props.formFields.fileName === "Файл не обрано!" 
-                            || props.formFields.category === "Оберіть категорію" || !props.formFields.price || props.formFields.price === '0'
-                            || props.formFields.description.length === 0 || !props.formFields.available;
- */
     const isDisabled = () => {
         return true;
     }
     return (
         <Dialog
-            onClose={() => props.setAdminAction(undefined)}
+            onClose={closeDialog}
             open={props.adminAction === 'addGood'}
             component="form">
             <Typography variant="h4" className={s.dialogTitle}>
@@ -57,19 +53,20 @@ const GoodDialog = (props) => {
                     </Button>
                     <Typography className={s.dialogPickedImg}>{props.formFields.fileName}</Typography>
                 </Stack>
-                <TextField size="small" id="filled-basic" label="Назва страви" variant="filled" value={!props.formFields && props.formFields.dishName.length !== 0 ? '' : props.formFields.dishName} onChange={(e) => updateFormField(e, 'dishName')} />
-                <TextField size="small" id="filled-basic" label="Опис страви" multiline variant="filled" value={!props.formFields.description && props.formFields.description.length !== 0 ? '' : props.formFields.description} onChange={(e) => updateFormField(e, 'description')} />
+                <TextField size="small" id="filled-basic" label="Назва страви" variant="filled" value={!props.formFields && props.formFields.goodName.length !== 0 ? '' : props.formFields.goodName} onChange={(e) => updateFormField(e, 'goodName')} />
+                <TextField size="small" id="filled-basic" label="Опис страви" multiline variant="filled" value={!props.formFields && props.formFields.description.length !== 0 ? '' : props.formFields.description} onChange={(e) => updateFormField(e, 'description')} />
                 <Select size="small"
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={props.formFields.category}
                     onChange={(e) => updateFormField(e, 'category')}
                     className={s.dialogSelect}
+                    style={{textTransform: 'capitalize'}}
                 >
-                    {/* <MenuItem value={'Оберіть категорію'}>Оберіть категорію</MenuItem>
+                    <MenuItem value={'Оберіть категорію'}>Оберіть категорію</MenuItem>
                     {props.categories && props.categories.map((category, index) => (
-                        <MenuItem value={category} key={index}>{category}</MenuItem>
-                    ))} */}
+                        <MenuItem value={category} key={index} style={{textTransform: 'capitalize'}}>{category}</MenuItem>
+                    ))}
                 </Select>
                 <TextField type="number" size="small" id="filled-basic" label="Ціна ₴" variant="filled" value={!props.formFields.price ? '' : Number(props.formFields.price)} onChange={(e) => updateFormField(e, 'price')} />
                 <RadioGroup
@@ -81,7 +78,6 @@ const GoodDialog = (props) => {
                     <FormControlLabel value='true' control={<Radio />} label="Доступно" />
                     <FormControlLabel value='false' control={<Radio />} label="Недоступно" />
                 </RadioGroup>
-
             </DialogContent>
             <DialogActions className={s.dialogButtons}>
                 <Button variant="contained" onClick={closeDialog}>Закрити</Button>

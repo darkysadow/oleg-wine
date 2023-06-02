@@ -4,15 +4,16 @@ import as from './AdminItem.module.scss'
 import { Button } from "@mui/material";
 import { connect } from "react-redux";
 import { formFields, getAdminAction, getAuthUser, getIsAuthLoading, getUpdateGood } from "../../redux/admin-selectors";
-import { setAdminAction, setUpdateGood, resetFormGood } from "../../redux/admin-reducer";
+import { setAdminAction, setUpdateGood, resetFormGood, setFormFields, setFormField } from "../../redux/admin-reducer";
 import GoodDialog from "./GoodDialog/GoodDialog";
 import { useEffect } from "react";
-import { getGoodsFromFB } from "../../redux/goods-reducer";
-import { getGoods } from "../../redux/goods-selectors";
+import { getGoodsFromFB, getCategories } from "../../redux/goods-reducer";
+import { getGoods, getCategoriesArray } from "../../redux/goods-selectors";
 
 const Admin = (props) => {
     useEffect(() => {
         props.getGoodsFromFB();
+        props.getCategories();
     }, [])
     const onClickAdd = () => {
         props.setAdminAction('addGood');
@@ -45,6 +46,9 @@ const Admin = (props) => {
             resetFormGood={props.resetFormGood}
             adminAction={props.adminAction}
             setAdminAction={props.setAdminAction}
+            setFormFields={props.setFormFields}
+            setFormField={props.setFormField}
+            categories={props.categories}
         />
     </div>)
 }
@@ -57,8 +61,9 @@ const mapStateToProps = (state) => {
         authUser: getAuthUser(state),
         isAuthLoading: getIsAuthLoading(state),
         updateGood: getUpdateGood(state),
-        goods: getGoods(state)
+        goods: getGoods(state),
+        categories: getCategoriesArray(state)
     }
 }
 
-export default connect(mapStateToProps, { setAdminAction, setUpdateGood, resetFormGood, getGoodsFromFB })(Admin);
+export default connect(mapStateToProps, { getCategories, setAdminAction, setUpdateGood, resetFormGood, getGoodsFromFB, setFormFields, setFormField })(Admin);
