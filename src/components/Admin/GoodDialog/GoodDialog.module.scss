@@ -1,23 +1,35 @@
 .dialog {
+    min-width: 24em;
+    padding: 2em;
+
     &Title {
-
+        padding-left: 0.6em;
     }
+
     &Fields {
-
+        display: flex;
+        flex-direction: column;
+        gap: 0.8em;
+        padding: 0.6em;
     }
+
     &GoodImage {
-
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
     }
-    &ImgPicker {
 
-    }
-    &PickedImg {
+    &ImgPicker {}
 
-    }
-    &Select {
+    &PickedImg {}
 
-    }
+    &Select {}
+
     &Buttons {
-        
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between !important;
+        padding: 0 24px !important;
     }
 }

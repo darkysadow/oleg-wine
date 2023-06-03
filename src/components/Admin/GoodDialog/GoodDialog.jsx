@@ -77,6 +77,7 @@ const GoodDialog = (props) => {
     return (
         props.formFields &&
         <Dialog
+            classes={{paper: s.dialog}}
             onClose={closeDialog}
             open={props.showDialog}
             component="form">
