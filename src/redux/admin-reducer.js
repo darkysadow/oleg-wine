@@ -61,17 +61,7 @@ const adminReducer = (state = initialState, action) => {
         case SET_FORM_FIELDS:
             return {
                 ...state,
-                formFields: {
-                    available: action.available,
-                    goodName: action.goodName,
-                    description: action.description,
-                    category: action.category,
-                    fileName: action.fileName,
-                    file: action.file,
-                    imgBucketURL: action.imgBucketURL,
-                    imgURL: action.imgBucket,
-                    price: action.price,
-                }
+                formFields: action.newFormFields
             }
         case RESET_FORM_GOOD:
             return {
@@ -109,7 +99,7 @@ const adminReducer = (state = initialState, action) => {
 export const setAuthStatus = (authStatus) => ({ type: SET_AUTH_STATUS, authStatus});
 export const setIsLoading = (isAuthLoading) => ({type: SET_IS_AUTH_LOADING, isAuthLoading});
 export const setAdminAction = (adminAction) => ({type: SET_ADMIN_ACTION, adminAction});
-export const setFormFields = (available, goodName, description, category, fileName, file, imgBucketURL, imgURL, price) => ({type: SET_FORM_FIELDS, available, goodName, description, category, fileName, file, imgBucketURL, imgURL, price});
+export const setFormFields = (newFormFields) => ({type: SET_FORM_FIELDS, newFormFields});
 export const setFormField = (field, newValue) => ({type: SET_FORM_FIELD, field, newValue})
 export const setDeleteGood = (id, imgBucket) => ({type: SET_DELETEGOOD, id, imgBucket});
 export const resetFormGood = () => ({type: RESET_FORM_GOOD});
