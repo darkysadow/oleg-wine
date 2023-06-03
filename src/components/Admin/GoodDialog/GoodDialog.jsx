@@ -1,14 +1,25 @@
 import React from "react";
 import s from './GoodDialog.module.scss';
-import { Avatar, Button, Dialog, DialogActions, DialogContent, FormControlLabel, MenuItem, Radio, RadioGroup, Select, Stack, TextField, Typography } from "@mui/material";
+import { Avatar, Button, Dialog, DialogActions, DialogContent, FormControlLabel, MenuItem, Radio, RadioGroup, Select, Stack, TextField, Typography, createTheme } from "@mui/material";
 import { useEffect } from "react";
+import { yellow } from "@mui/material/colors";
 
 
 const GoodDialog = (props) => {
     let isEdit = props.edit && Object.keys(props.edit).length !== 0;
     useEffect(() => {
         isEdit = props.edit && Object.keys(props.edit).length !== 0;
-        props.showDialog && props.setFormFields(isEdit ? props.edit : props.resetFormGood())
+        props.setFormFields(isEdit ? props.setFormFields(props.edit) : props.setFormFields({
+            available: null,
+            goodName: "",
+            description: "",
+            category: "Оберіть категорію",
+            fileName: "Файл не обрано!",
+            file: null,
+            imgBucketURL: "",
+            imgURL: "",
+            price: undefined,
+          }))
     }, [props.edit, props.showDialog])
 
     const updateFormField = (event, field) => {
@@ -27,7 +38,17 @@ const GoodDialog = (props) => {
     }
     const closeDialog = () => {
         props.setAdminAction(undefined);
-        props.resetFormGood();
+        props.setFormFields({
+            available: null,
+            goodName: "",
+            description: "",
+            category: "Оберіть категорію",
+            fileName: "Файл не обрано!",
+            file: null,
+            imgBucketURL: "",
+            imgURL: "",
+            price: undefined,
+          });
     }
 
     const isSubmitting = () => {
@@ -36,17 +57,35 @@ const GoodDialog = (props) => {
     const isDisabled = () => {
         return true;
     }
+
+    const theme = createTheme({
+        palette: {
+          primary: {
+              // Purple and green play nicely together.
+              main: yellow[800],
+          },
+          secondary: {
+              // This is green.A700 as hex.
+              main: '#6d1a1bcf',
+          },
+          textColor: {
+              main: '#000'
+          }
+      },
+      })
+
     return (
+        props.formFields &&
         <Dialog
             onClose={closeDialog}
-            open={props.adminAction === 'addGood'}
+            open={props.showDialog}
             component="form">
             <Typography variant="h4" className={s.dialogTitle}>
                 {isEdit ? "РЕДАГУВАТИ" : "ДОДАТИ"} ТОВАР
             </Typography>
             <DialogContent className={s.dialogFields} >
                 <Stack direction="row" spacing={2} className={s.dialogGoodImage}>
-                    {(isEdit && !props.formFields.fileName) && <Avatar alt="receipt image" src={props.formFields.imageURL} />}
+                    {(isEdit) && <Avatar alt="receipt image" src={props.formFields.imgURL} />}
                     <Button variant="outlined" component="label" color="secondary" className={s.dialogImgPicker}>
                         Обрати зображення
                         <input type="file" hidden onInput={(event) => { setFileData(event.target) }} accept=".jpg, .jpeg, .png, .jfif" />

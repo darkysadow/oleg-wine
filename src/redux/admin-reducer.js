@@ -1,4 +1,4 @@
-import { formFields } from "./admin-selectors";
+
 
 //Consts
 const SET_ADMIN_ACTION = 'SET_ADMIN_ACTION';
@@ -7,7 +7,6 @@ const SET_IS_AUTH_LOADING = 'SET_IS_AUTH_LOADING';
 const SET_DELETEGOOD = 'SET_DELETE_GOOD';
 const SET_FORM_FIELDS = 'SET_FORM_FIELDS';
 const SET_FORM_FIELD = 'SET_FORM_FIELD';
-const RESET_FORM_GOOD = 'RESET_FORM_GOOD';
 const SET_UPDATEGOOD = "SET_UPDATEGOOD";
 
 const initialState = {
@@ -22,8 +21,8 @@ const initialState = {
       category: "Оберіть категорію",
       fileName: "Файл не обрано!",
       file: null,
-      imageBucketURL: "",
-      imageURL: "",
+      imgBucketURL: "",
+      imgURL: "",
       price: undefined,
     },
     deleteGood: {
@@ -59,24 +58,10 @@ const adminReducer = (state = initialState, action) => {
                 }
             }
         case SET_FORM_FIELDS:
+            const { type, ...updatedFormFields } = action.payload;
             return {
                 ...state,
-                formFields: action.newFormFields
-            }
-        case RESET_FORM_GOOD:
-            return {
-                ...state,
-                formFields: {
-                    available: null,
-                    goodName: "",
-                    description: "",
-                    category: "Оберіть категорію",
-                    fileName: "Файл не обрано!",
-                    file: null,
-                    imageBucketURL: "",
-                    imageURL: "",
-                    price: undefined
-                }
+                formFields: updatedFormFields.payload
             }
         case SET_UPDATEGOOD:
             return {
@@ -99,10 +84,9 @@ const adminReducer = (state = initialState, action) => {
 export const setAuthStatus = (authStatus) => ({ type: SET_AUTH_STATUS, authStatus});
 export const setIsLoading = (isAuthLoading) => ({type: SET_IS_AUTH_LOADING, isAuthLoading});
 export const setAdminAction = (adminAction) => ({type: SET_ADMIN_ACTION, adminAction});
-export const setFormFields = (newFormFields) => ({type: SET_FORM_FIELDS, newFormFields});
+export const setFormFields = (newFormFields) => ({type: SET_FORM_FIELDS, payload: newFormFields});
 export const setFormField = (field, newValue) => ({type: SET_FORM_FIELD, field, newValue})
 export const setDeleteGood = (id, imgBucket) => ({type: SET_DELETEGOOD, id, imgBucket});
-export const resetFormGood = () => ({type: RESET_FORM_GOOD});
 export const setUpdateGood = (newValue) => ({type: SET_UPDATEGOOD, newValue});
 
 export default adminReducer;

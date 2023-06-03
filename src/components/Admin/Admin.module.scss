@@ -16,6 +16,13 @@
         border-radius: 10px;
         margin: 100px 0 0 0;
         overflow-y: scroll;
+        display: flex;
+        flex-direction: row;
+        flex: 0 0 100%;
+        width: 100%;
+        gap: 15px 3%;
+        flex-wrap: wrap;
+        justify-content: center;
         &::-webkit-scrollbar {
             background-color: transparent;
             width: 0.4em;
