@@ -3,9 +3,10 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    margin: 17vh 0 0 0;
     &AddGood {
         position: absolute;
-        top: 10px;
+        top: -50px;
         right: 10px;
     }
     &Block {
@@ -14,7 +15,6 @@
         background-color: rgba(235, 244, 252, 0.406);
         padding: 10px;
         border-radius: 10px;
-        margin: 100px 0 0 0;
         overflow-y: scroll;
         display: flex;
         flex-direction: row;
