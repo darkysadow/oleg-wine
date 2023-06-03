@@ -11,6 +11,7 @@ import { getGoodsFromFB, getCategories } from "../../redux/goods-reducer";
 import { getGoods, getCategoriesArray } from "../../redux/goods-selectors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import logo from './../../img/logo.png';
 
 const Admin = (props) => {
     useEffect(() => {
@@ -38,7 +39,16 @@ const Admin = (props) => {
             </div>
             <div className={s.adminBlock}>
                 {!props.goods ?
-                    <div>PRELOADER</div> :
+                    <div className={s.preloader}>
+                        <div className={s.preloaderBody}>
+                            <div className={s.preloaderImg}>
+                                <img src={logo} alt="preloader" />
+                            </div>
+                            <div className={s.preloaderCircle}>
+
+                            </div>
+                        </div>
+                    </div> :
                     props.goods.map(item => (
                         <div key={item.id} className={as.adminItem}>
                             {item.available === false && <div className={as.unavailable}></div>}
