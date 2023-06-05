@@ -17,3 +17,7 @@ export const getIsAuthLoading = (state) => {
 export const getUpdateGood = (state) => {
     return state.adminReducer.updateGood;
 }
+
+export const getIsSubmitting = (state) => {
+    return state.adminReducer.isSubmitting;
+}

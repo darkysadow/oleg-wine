@@ -8,6 +8,7 @@ const SET_DELETEGOOD = 'SET_DELETE_GOOD';
 const SET_FORM_FIELDS = 'SET_FORM_FIELDS';
 const SET_FORM_FIELD = 'SET_FORM_FIELD';
 const SET_UPDATEGOOD = "SET_UPDATEGOOD";
+const SET_IS_SUBMITTING = "SET_IS_SUBMITTING";
 
 const initialState = {
     adminAction: undefined,
@@ -29,6 +30,7 @@ const initialState = {
         id: undefined,
         imgBucket: undefined
     },
+    isSubmitting: false
     
 }
 
@@ -76,6 +78,11 @@ const adminReducer = (state = initialState, action) => {
                     [action.field]: action.newValue
                 }
             }
+        case SET_IS_SUBMITTING:
+            return {
+                ...state,
+                isSubmitting: action.newValue
+            }
         default:
             return state;
     }
@@ -88,5 +95,6 @@ export const setFormFields = (newFormFields) => ({type: SET_FORM_FIELDS, payload
 export const setFormField = (field, newValue) => ({type: SET_FORM_FIELD, field, newValue})
 export const setDeleteGood = (id, imgBucket) => ({type: SET_DELETEGOOD, id, imgBucket});
 export const setUpdateGood = (newValue) => ({type: SET_UPDATEGOOD, newValue});
+export const setIsSubmitting = (newValue) => ({type: SET_IS_SUBMITTING, newValue});
 
 export default adminReducer;

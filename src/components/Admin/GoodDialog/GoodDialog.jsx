@@ -2,7 +2,9 @@ import React from "react";
 import s from './GoodDialog.module.scss';
 import { Avatar, Button, Dialog, DialogActions, DialogContent, FormControlLabel, MenuItem, Radio, RadioGroup, Select, Stack, TextField, ThemeProvider, Typography, createTheme } from "@mui/material";
 import { useEffect } from "react";
-import { purple, yellow } from "@mui/material/colors";
+import { purple} from "@mui/material/colors";
+import { replaceImage, uploadImage, getDownloadURL } from "../../../utilites/firebase/storage";
+import { addGood, updateGood } from "../../../utilites/firebase/firestore";
 
 
 const GoodDialog = (props) => {
@@ -33,9 +35,41 @@ const GoodDialog = (props) => {
         props.setFormField('file', file)
     }
 
-    const handleSubmit = () => {
-        console.log('Submit');
-    }
+    const handleSubmit = async () => {
+        props.setIsSubmitting(true);
+    
+        try {
+          
+          if (isEdit) {
+            // Check whether image was changed - fileName will be not null
+            if (props.formFields.fileName) {
+              // Store image into Storage
+              await replaceImage(props.formFields.file, props.formFields.imgBucketURL);
+            }
+            const newImageURL = await getDownloadURL(props.formFields.imgBucketURL);
+            props.setFormField('imgURL', newImageURL)
+            await updateGood(props.formFields.id, props.formFields.available, props.formFields.category, 
+                props.formFields.description, props.formFields.goodName, props.formFields.imgBucketURL,
+                props.formFields.imgURL, props.formFields.price);
+          } else {
+            // Adding receipt
+            // Store image into Storage
+              const bucket = await uploadImage(props.formFields.file, props.formFields.category);
+              const newImageURL = await getDownloadURL(bucket);
+              // Store data into Firestore
+              await addGood(props.formFields.category, props.formFields.goodName, 
+                props.formFields.description, props.formFields.price, props.formFields.available, 
+                bucket, newImageURL);
+            }
+          //props.onSuccess(isEdit ? DISHES_ENUM.edit : DISHES_ENUM.add);
+        } catch (error) {
+          //props.onError(isEdit ? DISHES_ENUM.edit : DISHES_ENUM.add);
+          console.log(error);
+        }
+    
+        // Clear all form data
+        closeDialog();
+      };
     const closeDialog = () => {
         props.setAdminAction(undefined);
         props.setFormFields({
@@ -51,9 +85,6 @@ const GoodDialog = (props) => {
         });
     }
 
-    const isSubmitting = () => {
-        console.log('isSubmitting');
-    }
     const isDisabled = () => {
         console.log(props.formFields.goodName.length === 0 || props.formFields.description.length === 0 ||
             props.formFields.category === 'Оберіть категорію' || props.formFields.fileName === "Файл не обрано!");
@@ -77,7 +108,9 @@ const GoodDialog = (props) => {
     })
 
     return (
-        props.formFields &&
+        !props.formFields ?
+            <div>Preloader</div>
+        :
         <ThemeProvider theme={theme}>
             <Dialog
                 classes={{ paper: s.dialog }}
@@ -124,7 +157,7 @@ const GoodDialog = (props) => {
                 </DialogContent>
                 <DialogActions className={s.dialogButtons}>
                     <Button variant="contained" onClick={closeDialog}>Закрити</Button>
-                    {!isSubmitting ?
+                    {props.isSubmitting ?
                         <Button color="secondary" variant="contained" disabled={true}>
                             Відправка...
                         </Button> :

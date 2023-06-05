@@ -3,8 +3,8 @@ import s from './Admin.module.scss';
 import as from './AdminItem.module.scss'
 import { Button } from "@mui/material";
 import { connect } from "react-redux";
-import { formFields, getAdminAction, getAuthUser, getIsAuthLoading, getUpdateGood } from "../../redux/admin-selectors";
-import { setAdminAction, setUpdateGood, setFormFields, setFormField } from "../../redux/admin-reducer";
+import { formFields, getAdminAction, getAuthUser, getIsAuthLoading, getIsSubmitting, getUpdateGood } from "../../redux/admin-selectors";
+import { setAdminAction, setUpdateGood, setFormFields, setFormField, setIsSubmitting } from "../../redux/admin-reducer";
 import GoodDialog from "./GoodDialog/GoodDialog";
 import { useEffect } from "react";
 import { getGoodsFromFB, getCategories } from "../../redux/goods-reducer";
@@ -67,7 +67,7 @@ const Admin = (props) => {
                                     {item.price} ₴
                                 </div>
                                 <div className={as.adminItemAvailable}>
-                                    {item.available === true ? 'Доступно' : 'Недоступно'}
+                                    {item.available === 'true' ? 'Доступно' : 'Недоступно'}
                                 </div>
                             </div>
                             <div className={as.adminItemControls}>
@@ -92,6 +92,7 @@ const Admin = (props) => {
             setFormFields={props.setFormFields}
             setFormField={props.setFormField}
             categories={props.categories}
+            setIsSubmitting={props.setIsSubmitting}
         />
     </div>)
 }
@@ -105,8 +106,9 @@ const mapStateToProps = (state) => {
         isAuthLoading: getIsAuthLoading(state),
         updateGood: getUpdateGood(state),
         goods: getGoods(state),
-        categories: getCategoriesArray(state)
+        categories: getCategoriesArray(state),
+        isSubmitting: getIsSubmitting(state)
     }
 }
 
-export default connect(mapStateToProps, { getCategories, setAdminAction, setUpdateGood, getGoodsFromFB, setFormFields, setFormField })(Admin);
+export default connect(mapStateToProps, { setIsSubmitting, getCategories, setAdminAction, setUpdateGood, getGoodsFromFB, setFormFields, setFormField })(Admin);
