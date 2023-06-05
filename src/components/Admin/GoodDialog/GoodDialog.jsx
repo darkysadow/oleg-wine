@@ -86,8 +86,6 @@ const GoodDialog = (props) => {
     }
 
     const isDisabled = () => {
-        console.log(props.formFields.goodName.length === 0 || props.formFields.description.length === 0 ||
-            props.formFields.category === 'Оберіть категорію' || props.formFields.fileName === "Файл не обрано!");
             return (props.formFields.goodName.length === 0 || props.formFields.description.length === 0 ||
             props.formFields.category === 'Оберіть категорію' || props.formFields.fileName === "Файл не обрано!" ||
             !props.formFields.available || !props.formFields.price || props.formFields.price <= 0)

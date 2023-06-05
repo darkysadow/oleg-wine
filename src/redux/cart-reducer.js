@@ -15,6 +15,8 @@ let cartReducer = (state = initialState, action) => {
         case ADD_GOOD:
             let newGood = {
                 goodId: action.goodId,
+                goodName: action.goodName,
+                imgURL: action.imgURL,
                 count: action.count,
                 price: action.price,
                 summ: action.price * action.count,
@@ -54,7 +56,7 @@ let cartReducer = (state = initialState, action) => {
     }
 }
 
-export const addGoodToCart = (goodId, count, price, category) => ({ type: ADD_GOOD, goodId, count, price, category})
+export const addGoodToCart = (goodId, goodName, imgURL, count, price, category) => ({ type: ADD_GOOD, goodId, goodName, imgURL, count, price, category})
 export const deleteGoodFromCart = (goodId) => ({type: DELETE_GOOD, goodId})
 export const updateGoodCount = (goodId, newValue) => ({type: UPDATE_GOOD_COUNT, goodId, newValue})
 export const clearCart = () => ({type: CLEAR_CART})

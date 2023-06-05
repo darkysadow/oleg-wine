@@ -55,7 +55,7 @@ const Cart = (props) => {
                 }}>
                     {props.cart.length === 0 ? 
                         <div className={s.emptyLabel}>В кошику немає жодного товару</div> : 
-                        props.cart.map(item => <CartItem key={item.goodid} title={item.goodId} count={item.count} category={item.category} price={item.price} userAction={props.userAction} itemToDelete={props.itemToDelete} updateGoodCount={props.updateGoodCount} deleteGoodFromCart={props.deleteGoodFromCart} setUserAction={props.setUserAction} setDeleteItem={props.setDeleteItem} checkNominal={checkNominal}/>)}
+                        props.cart.map(item => <CartItem key={item.goodId} title={item.goodName} image={item.imgURL} id={item.goodId} count={item.count} category={item.category} price={item.price} userAction={props.userAction} itemToDelete={props.itemToDelete} updateGoodCount={props.updateGoodCount} deleteGoodFromCart={props.deleteGoodFromCart} setUserAction={props.setUserAction} setDeleteItem={props.setDeleteItem} checkNominal={checkNominal}/>)}
                 </div> 
             </div>
             {props.cart.length === 0 ? <Buttons propArr={[buttonsProps[0]]} /> : <Buttons propArr={buttonsProps} />}
@@ -74,8 +74,8 @@ const Cart = (props) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {props.cart.map(item => (<tr className={s.placeorderDialogPosition}>
-                            <td className={s.placeorderDialogPositionTitle}>{item.goodId}</td>
+                                {props.cart.map(item => (<tr key={item.goodId} className={s.placeorderDialogPosition}>
+                            <td className={s.placeorderDialogPositionTitle}>{item.goodName}</td>
                             <td className={s.placeorderDialogPositionCount}>{item.count + "" + checkNominal(item)}</td>
                             <td className={s.placeorderDialogPositionPrice}>{item.price + " грн/" + checkNominal(item)}</td>
                             <td className={s.placeorderDialogPositionSumm}>{parseInt(item.count * item.price) + " грн"}</td>

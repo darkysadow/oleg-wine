@@ -7,7 +7,6 @@ const BUCKET_URL = "gs://oleg-wine.appspot.com";
  
 // Uploads image and returns the storage bucket
 export async function uploadImage(image, category) {
-  console.log(image)
   const formattedDate = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss'O'");
   const bucket = `${BUCKET_URL}/${category}/${formattedDate}.jpg`;
   await uploadBytes(ref(storage, bucket), image);

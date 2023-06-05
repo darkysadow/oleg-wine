@@ -35,9 +35,7 @@ const CartItem = (props) => {
     return (
         <div className={s.cartItem}>
             <div className={s.cartItemImage}>
-                {props.category === 'wine' && <img src={wine} alt="" />}
-                {props.category === 'dwellers' && <img src={dwellers} alt="" />}
-                {props.category === 'grape' && <img src={grape} alt="" />}
+                <img src={props.image} alt={props.title} />
             </div>
             <div className={s.cartItemNameCount}>
                 <div className={s.cartItemName}>
@@ -57,7 +55,7 @@ const CartItem = (props) => {
                     Сума: {props.price * props.count} грн
                 </div>
             </div>
-            <div className={s.cartItemDelete} onClick={() => {deleteItem(props.title);}}>
+            <div className={s.cartItemDelete} onClick={() => {deleteItem(props.id);}}>
                 +
             </div>
             <Dialog open={props.userAction === 'delete'}

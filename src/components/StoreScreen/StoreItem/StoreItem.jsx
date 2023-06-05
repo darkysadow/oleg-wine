@@ -55,12 +55,13 @@ const StoreItem = (props) => {
         <div className={s.storeItem}>
             <div className={s.storeItemTop}>
                 <div className={s.storeItemImage}>
-                    {props.item.category === 'wine' && <img src={wine} alt="" />}
-                    {props.item.category === 'grape' && <img src={grape} alt="" />}
-                    {props.item.category === 'dwellers' && <img src={dwellers} alt="" />}
+                    {/* {props.item.category === 'вино' && <img src={wine} alt="" />}
+                    {props.item.category === 'виноград' && <img src={grape} alt="" />}
+                    {props.item.category === 'живці' && <img src={dwellers} alt="" />} */}
+                    <img src={props.item.imgURL} alt={props.item.goodName} />
                 </div>
                 <div className={s.storeItemInfo}>
-                    <p>{props.item.title}</p>
+                    <p>{props.item.goodName}</p>
                     <p>
                         {props.item.nominal ? props.item.price + ' ' + props.item.nominal : props.item.price + checkNominal()}
                     </p>
@@ -68,8 +69,8 @@ const StoreItem = (props) => {
             </div>
             <div className={s.storeItemBottom}>
                 <div className={s.control}>
-                    {props.ids.includes(props.item.title) ?
-                        <div className={`${s.controlButton} ${s.deleteButton}`} onClick={() => props.deleteGoodFromCart(props.item.title)}>Видалити з кошику</div> :
+                    {props.ids.includes(props.item.id) ?
+                        <div className={`${s.controlButton} ${s.deleteButton}`} onClick={() => props.deleteGoodFromCart(props.item.goodName)}>Видалити з кошику</div> :
                         <div className={`${s.controlButton} ${s.addButton}`} onClick={() => { props.setSelectedItem(props.item); props.setUserAction('selectCount') }}>Додати до кошику</div>}
                 </div>
             </div>
@@ -86,7 +87,7 @@ const StoreItem = (props) => {
                     <div className={dialogStyle.good}>
                         <div className={dialogStyle.nameImage}>
                             <div className={dialogStyle.image}>
-                                <img src={props.selectedItem && setImage(props.selectedItem)} />
+                                <img src={props.selectedItem && props.selectedItem.imgURL} />
                             </div>
                             <div className={dialogStyle.name}>
                                 {props.selectedItem && props.selectedItem.title}
@@ -119,7 +120,7 @@ const StoreItem = (props) => {
                 </DialogContent>
                 <DialogActions>
                     <Button variant="contained" onClick={() => { props.setUserAction(undefined); props.setSelectedItem(undefined);  setCount(1);}}>Закрити</Button>
-                    <Button variant="contained" disabled={!count} onClick={() => {props.addGoodToCart(props.selectedItem.title, count, 120, props.selectedItem.category); props.setSelectedItem(undefined); props.setUserAction(undefined)}}>Додати в кошик</Button>
+                    <Button variant="contained" disabled={!count} onClick={() => {props.addGoodToCart(props.selectedItem.id, props.selectedItem.goodName, props.selectedItem.imgURL, count, 120, props.selectedItem.category); props.setSelectedItem(undefined); props.setUserAction(undefined)}}>Додати в кошик</Button>
                 </DialogActions>
                 
             </Dialog>

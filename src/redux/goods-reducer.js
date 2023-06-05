@@ -73,7 +73,6 @@ export const getCategories = () => async (dispatch) => {
         const docRef = doc(db, 'categories', 'categories');
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-            console.log(docSnap.data());
             dispatch(setCategories(docSnap.data().categories));
         } else {
             console.log('No such document');

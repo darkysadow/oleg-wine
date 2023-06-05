@@ -4,6 +4,10 @@ import Buttons from "../Buttons/Buttons";
 import StoreItem from "./StoreItem/StoreItem";
 import withRouter from "../HOC/withRouter/withRouter";
 import { useNavigate } from "react-router-dom";
+import { getGoods } from "../../redux/goods-selectors";
+import { useEffect } from "react";
+import { getGoodsFromFB } from "../../redux/goods-reducer";
+import { connect } from "react-redux";
 
 const StoreScreen = (props) => {
     const navigate = useNavigate();
@@ -18,87 +22,20 @@ const StoreScreen = (props) => {
         }
     ]
 
-    const items = [
-        {
-            id: 1,
-            title: "Червоне з шовковиці",
-            category: 'wine',
-            price: 280,
-            description: 'Луче вино'
-        },
-        {
-            id: 2,
-            title: "Біле з черешні",
-            category: 'wine',
-            price: 280,
-            description: 'Луче вино'
-        },
-        {
-            id: 3,
-            title: "Біле з аличі",
-            category: 'wine',
-            price: 280,
-            description: 'Луче вино'
-        },
-        {
-            id: 4,
-            title: "Червоне з черешні",
-            category: 'wine',
-            price: 280,
-            description: 'Луче вино'
-        },
-        {
-            id: 5,
-            title: "Біле Аркадія",
-            category: 'wine',
-            price: 280,
-            description: 'Луче вино'
-        },
-        {
-            id: 6,
-            title: "Червоне Вікторія",
-            category: 'wine',
-            price: 280,
-            description: 'Луче вино'
-        },
-        {
-            id: 7,
-            title: "Червоне Юпітер",
-            category: 'wine',
-            price: 280,
-            description: 'Луче вино'
-        },
-        {
-            id: 8,
-            title: "Рожеве",
-            category: 'wine',
-            price: 280,
-            description: 'Луче вино'
-        },
-        {
-            id: 9,
-            title: "Червоне із смородини",
-            category: 'wine',
-            price: 280,
-            description: 'Луче вино'
-        },
-        {
-            id: 10,
-            title: "Преображення",
-            category: 'grape',
-            price: 130,
-            description: 'Вкусний виноград'
-        },
-        {
-            id: 11,
-            title: "Вікторія",
-            category: 'dwellers',
-            price: 30,
-            description: 'Їбейший живець'
-        }
-    ]
+    useEffect(() => {
+        props.getGoodsFromFB()
+    }, [])
 
     const goodCategory = props.router.params.goodCategory;
+    const cyrGoodCategory = () => {
+        if (goodCategory === 'wine') {
+            return 'вино'
+        } else if (goodCategory === 'grape') {
+            return 'виноград'
+        } else if (goodCategory === 'dwellers') {
+            return 'живці'
+        }
+    }
     return (
         <div className="container">
             <div className={`${s.store} screenHeight`}>
@@ -110,7 +47,7 @@ const StoreScreen = (props) => {
                         behavior: 'auto',
                     });
                 }}>
-                    {items.map(item => (!goodCategory ? <StoreItem key={item.id} item={item}/> : item.category === goodCategory && <StoreItem key={item.id} item={item}/>))}
+                    {props.items && props.items.map(item => item.category === cyrGoodCategory() && <StoreItem key={item.id} item={item} />)}
                 </div>
             </div>
             <Buttons propArr={buttonsProps} />
@@ -118,4 +55,10 @@ const StoreScreen = (props) => {
     );
 }
 
-export default withRouter(StoreScreen);
+const mapStateToProps = (state) => {
+    return {
+        items: getGoods(state),
+    }
+}
+
+export default connect(mapStateToProps, {getGoodsFromFB})(withRouter(StoreScreen));
