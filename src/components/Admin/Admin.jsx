@@ -2,7 +2,7 @@ import React from "react";
 import s from './Admin.module.scss';
 import as from './AdminItem.module.scss'
 import { Button } from "@mui/material";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { formFields, getAdminAction, getAuthUser, getIsAuthLoading, getIsSubmitting, getUpdateGood } from "../../redux/admin-selectors";
 import { setAdminAction, setUpdateGood, setFormFields, setFormField, setIsSubmitting } from "../../redux/admin-reducer";
 import GoodDialog from "./GoodDialog/GoodDialog";
@@ -15,9 +15,10 @@ import logo from './../../img/logo.png';
 import { deleteGood } from "../../utilites/firebase/firestore";
 import { deleteImage } from "../../utilites/firebase/storage";
 import useFirebaseAuth from "../../utilites/firebase/auth";
-import { loginSuccess, logoutSuccess } from "../../redux/auth-reducer";
+import { logoutSuccess } from "../../redux/auth-reducer";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../utilites/firebase/firebase";
+import Preloader from "../common/Preloader/Preloader";
 
 const Admin = (props) => {
     const {authUser, isLoading, signOut} = useFirebaseAuth();
@@ -47,7 +48,6 @@ const Admin = (props) => {
     }
 
     const onClickDelete = (id, imgBucket) => {
-        console.log(id, imgBucket);
         deleteGood(id);
         deleteImage(imgBucket);
     }
@@ -70,16 +70,8 @@ const Admin = (props) => {
             </div>
             <div className={s.adminBlock}>
                 {!props.goods ?
-                    <div className={s.preloader}>
-                        <div className={s.preloaderBody}>
-                            <div className={s.preloaderImg}>
-                                <img src={logo} alt="preloader" />
-                            </div>
-                            <div className={s.preloaderCircle}>
-
-                            </div>
-                        </div>
-                    </div> :
+                    <Preloader />
+                    :
                     props.goods.map(item => (
                         <div key={item.id} className={as.adminItem}>
                             {item.available === false && <div className={as.unavailable}></div>}

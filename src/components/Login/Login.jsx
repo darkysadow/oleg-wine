@@ -9,6 +9,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from "../../utilites/firebase/firebase"
 import useFirebaseAuth, { useAuth } from "../../utilites/firebase/auth"
 import { useEffect } from "react"
+import Preloader from "../common/Preloader/Preloader"
 
 const Login = (props) => {
     const dispatch = useDispatch();
@@ -19,7 +20,6 @@ const Login = (props) => {
         if(authUser) {
             dispatch(props.loginSuccess(authUser))
         }
-        console.log(authUser);
         if(authUser && !isLoading) {
             navigate('/admin')
         }
@@ -56,7 +56,7 @@ const Login = (props) => {
                         Авторизуватися
                     </Button>}
             </div>
-            : <>Preloader</>}
+            : <Preloader />}
         </div>
     </div> 
     )
