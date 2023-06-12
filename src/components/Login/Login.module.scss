@@ -1,0 +1,18 @@
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(235, 244, 252, 0.406);
+    &Block {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    input {
+        background-color: rgba(235, 244, 252, 0.7);
+    }
+}
+
+.label {}

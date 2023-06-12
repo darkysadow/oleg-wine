@@ -1,6 +1,6 @@
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { getAllGoods } from "../utilites/firebase/firestore";
+import { collection, doc, getDoc, getDocs, onSnapshot, query } from "firebase/firestore";
 import { db } from "../utilites/firebase/firebase";
+import { getDownloadURL } from "../utilites/firebase/storage";
 
 //CONSTS
 const SET_SELECTED_GOOD = 'SET_SELECTED_GOOD';
@@ -52,7 +52,7 @@ const setIsLoadingGoods = (newValue) => ({type: SET_IS_LOADING, newValue});
         dispatch(setGoods(data))
     })
 } */
-export const getGoodsFromFB = () => async (dispatch) => {
+/* export const getGoodsFromFB = () => async (dispatch) => {
     try {
       const snapshot = await getDocs(collection(db, 'goods'));
       let goods = [];
@@ -66,7 +66,23 @@ export const getGoodsFromFB = () => async (dispatch) => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }; */
+  export const getGoodsFromFB = () => async (dispatch) => {
+    const q = query(collection(db, 'goods'));
+    const unsubscribe = onSnapshot(q, async (snapshot) => {
+        let goods = [];
+        for (const documentSnapshot of snapshot.docs) {
+            const good = documentSnapshot.data();
+            goods.push({
+                ...good,
+                id: documentSnapshot.id,
+                imgURL: await getDownloadURL(good.imgBucketURL)
+            })
+        }
+        dispatch(setGoods(goods))
+    })
+    return unsubscribe;
+}
 
 export const getCategories = () => async (dispatch) => {
     try {
