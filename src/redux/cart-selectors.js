@@ -22,3 +22,7 @@ export const getSumm = (state) => {
         return summ;
     }
 }
+
+export const getOrderForm = (state) => {
+    return state.cartReducer.orderForm;
+}

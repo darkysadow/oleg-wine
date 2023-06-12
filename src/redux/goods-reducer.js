@@ -75,8 +75,7 @@ const setIsLoadingGoods = (newValue) => ({type: SET_IS_LOADING, newValue});
             const good = documentSnapshot.data();
             goods.push({
                 ...good,
-                id: documentSnapshot.id,
-                imgURL: await getDownloadURL(good.imgBucketURL)
+                id: documentSnapshot.id
             })
         }
         dispatch(setGoods(goods))

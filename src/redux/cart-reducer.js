@@ -2,12 +2,19 @@
 const ADD_GOOD = 'ADD_GOOD'
 const DELETE_GOOD = 'DELETE_GOOD'
 const UPDATE_GOOD_COUNT = 'UPDATE_GOOD_COUNT'
-const CLEAR_CART = "CLEAR_CART"
+const CLEAR_CART = 'CLEAR_CART'
+const UPDATE_ORDER_FORM_FIELD = 'UPDATE_ORDER_FORM_FIELD'
 
 
 //initial state
 let initialState = {
-    cart: []
+    cart: [],
+    orderForm: {
+        firstName: '',
+        phoneNumber: '',
+        email: '',
+        comment: ''
+    }
 }
 
 let cartReducer = (state = initialState, action) => {
@@ -51,6 +58,14 @@ let cartReducer = (state = initialState, action) => {
                 ...state,
                 cart: []
             }
+        case UPDATE_ORDER_FORM_FIELD:
+            return {
+                ...state,
+                orderForm: {
+                    ...state.orderForm,
+                    [action.field]: action.newValue
+                }
+            }
         default:
             return state;
     }
@@ -60,5 +75,6 @@ export const addGoodToCart = (goodId, goodName, imgURL, count, price, category) 
 export const deleteGoodFromCart = (goodId) => ({type: DELETE_GOOD, goodId})
 export const updateGoodCount = (goodId, newValue) => ({type: UPDATE_GOOD_COUNT, goodId, newValue})
 export const clearCart = () => ({type: CLEAR_CART})
+export const updateUserOrderField = (field, newValue) => ({type: UPDATE_ORDER_FORM_FIELD, field, newValue});
 
 export default cartReducer;
