@@ -2,7 +2,7 @@ import React from "react";
 import s from './Admin.module.scss';
 import as from './AdminItem.module.scss'
 import { Button } from "@mui/material";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { formFields, getAdminAction, getAuthUser, getIsAuthLoading, getIsSubmitting, getUpdateGood } from "../../redux/admin-selectors";
 import { setAdminAction, setUpdateGood, setFormFields, setFormField, setIsSubmitting } from "../../redux/admin-reducer";
 import GoodDialog from "./GoodDialog/GoodDialog";
@@ -12,12 +12,30 @@ import { getGoods, getCategoriesArray } from "../../redux/goods-selectors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import logo from './../../img/logo.png';
+import { deleteGood } from "../../utilites/firebase/firestore";
+import { deleteImage } from "../../utilites/firebase/storage";
+import useFirebaseAuth from "../../utilites/firebase/auth";
+import { loginSuccess, logoutSuccess } from "../../redux/auth-reducer";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../../utilites/firebase/firebase";
 
 const Admin = (props) => {
+    const {authUser, isLoading, signOut} = useFirebaseAuth();
+    const navigate = useNavigate();
+
     useEffect(() => {
-        props.getGoodsFromFB();
-        props.getCategories();
-    }, [])
+        async function fetchData() {
+            props.getGoodsFromFB();
+            props.getCategories();
+        }
+        if(authUser) {
+            fetchData()
+        }
+        if (!authUser && !isLoading) {
+            navigate('/login')
+        }
+    }, [authUser, isLoading])
+
     const onClickAdd = () => {
         props.setAdminAction('addGood');
         props.setUpdateGood({});
@@ -30,12 +48,25 @@ const Admin = (props) => {
 
     const onClickDelete = (id, imgBucket) => {
         console.log(id, imgBucket);
+        deleteGood(id);
+        deleteImage(imgBucket);
+    }
+
+    const onSignOut = () => {
+        signOut(auth).then(() => {
+            navigate('/login');
+            props.logoutSuccess()
+        })
     }
 
     return (<div className='container'>
         <div className={`${s.admin} adminScreenHeight`}>
+            {!isLoading ? <>
             <div className={s.adminAddGood}>
                 <Button onClick={() => onClickAdd()}>Додати товар</Button>
+            </div>
+            <div className={s.adminExit}>
+                <Button onClick={() => onSignOut()}>Вийти з панелі</Button>
             </div>
             <div className={s.adminBlock}>
                 {!props.goods ?
@@ -81,7 +112,9 @@ const Admin = (props) => {
                         </div>
                     ))
                 }
+                
             </div>
+            </> : <>Preloader</>}
         </div>
         <GoodDialog
             edit={props.updateGood}
@@ -92,6 +125,7 @@ const Admin = (props) => {
             setFormFields={props.setFormFields}
             setFormField={props.setFormField}
             categories={props.categories}
+            isSubmitting={props.isSubmitting}
             setIsSubmitting={props.setIsSubmitting}
         />
     </div>)
@@ -111,4 +145,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { setIsSubmitting, getCategories, setAdminAction, setUpdateGood, getGoodsFromFB, setFormFields, setFormField })(Admin);
+export default connect(mapStateToProps, { logoutSuccess, setIsSubmitting, getCategories, setAdminAction, setUpdateGood, getGoodsFromFB, setFormFields, setFormField })(Admin);

@@ -20,16 +20,16 @@ const CartItem = (props) => {
       };
 
     const handleIncrement = () => {
-        if (/^\d*$/.test(props.count) && 1000 > parseInt(props.count) > 0) {
+        if (/^\d*$/.test(parseInt(props.count)) && 1000 > parseInt(props.count) > 0) {
             const newValue = parseInt(props.count) + 1
-            props.updateGoodCount(props.title, newValue)
+            props.updateGoodCount(props.id, newValue)
         }
     }
 
     const handleDecrement = () => {
-        if (/^\d*$/.test(props.count - 2) && 1000 > parseInt(props.count - 1) > 0 ) {
+        if (/^\d*$/.test(parseInt(props.count) - 2) && 1000 > parseInt(props.count - 1) > 0 ) {
             const newValue = parseInt(props.count) - 1
-            props.updateGoodCount(props.title, newValue)
+            props.updateGoodCount(props.id, newValue)
         }
     }
     return (

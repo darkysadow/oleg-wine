@@ -37,6 +37,7 @@ const GoodDialog = (props) => {
 
     const handleSubmit = async () => {
         props.setIsSubmitting(true);
+
     
         try {
           
@@ -51,6 +52,7 @@ const GoodDialog = (props) => {
             await updateGood(props.formFields.id, props.formFields.available, props.formFields.category, 
                 props.formFields.description, props.formFields.goodName, props.formFields.imgBucketURL,
                 props.formFields.imgURL, props.formFields.price);
+            props.setIsSubmitting(false)
           } else {
             // Adding receipt
             // Store image into Storage
@@ -60,6 +62,7 @@ const GoodDialog = (props) => {
               await addGood(props.formFields.category, props.formFields.goodName, 
                 props.formFields.description, props.formFields.price, props.formFields.available, 
                 bucket, newImageURL);
+                props.setIsSubmitting(false)
             }
           //props.onSuccess(isEdit ? DISHES_ENUM.edit : DISHES_ENUM.add);
         } catch (error) {

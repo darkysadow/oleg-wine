@@ -3,6 +3,7 @@ import cartReducer from "./cart-reducer";
 import userReducer from "./user-reducer";
 import adminReducer from "./admin-reducer";
 import goodsReducer from "./goods-reducer";
+import authReducer from "./auth-reducer";
 import thunk from "redux-thunk";
 
 let reducers = combineReducers({
@@ -10,6 +11,7 @@ let reducers = combineReducers({
     userReducer,
     adminReducer,
     goodsReducer,
+    authReducer
 })
 
 let store = createStore(reducers, applyMiddleware(thunk))

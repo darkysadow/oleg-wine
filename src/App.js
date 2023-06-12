@@ -11,6 +11,9 @@ import { Route, Router, Routes } from 'react-router-dom';
 import ItemDialog from './components/StoreScreen/ItemDialog/ItemDialog';
 import Cart from './components/Cart/Cart';
 import Admin from './components/Admin/Admin';
+import Login from './components/Login/Login';
+import AuthTest from './components/AuthTest/AuthTest';
+import LoginTest from './components/AuthTest/LoginTest';
 
 
 function App() {
@@ -29,6 +32,9 @@ function App() {
           <Route path="/dialog" element={<ItemDialog />} />
           <Route path="/cart" element={<Cart />} />
           <Route path='/admin' element={<Admin />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/authTest' element={<AuthTest />} />
+          <Route path='/loginTest' element={<LoginTest />} />
         </Routes>
     </div>
   );
