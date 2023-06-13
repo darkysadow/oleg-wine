@@ -1,7 +1,7 @@
 import React from "react";
 import s from './Admin.module.scss';
 import as from './AdminItem.module.scss'
-import { Button } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { connect } from "react-redux";
 import { formFields, getAdminAction, getAuthUser, getIsAuthLoading, getIsSubmitting, getUpdateGood } from "../../redux/admin-selectors";
 import { setAdminAction, setUpdateGood, setFormFields, setFormField, setIsSubmitting } from "../../redux/admin-reducer";
@@ -11,7 +11,6 @@ import { getGoodsFromFB, getCategories } from "../../redux/goods-reducer";
 import { getGoods, getCategoriesArray } from "../../redux/goods-selectors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import logo from './../../img/logo.png';
 import { deleteGood } from "../../utilites/firebase/firestore";
 import { deleteImage } from "../../utilites/firebase/storage";
 import useFirebaseAuth from "../../utilites/firebase/auth";
@@ -19,10 +18,13 @@ import { logoutSuccess } from "../../redux/auth-reducer";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../utilites/firebase/firebase";
 import Preloader from "../common/Preloader/Preloader";
+import { useState } from "react";
 
 const Admin = (props) => {
     const {authUser, isLoading, signOut} = useFirebaseAuth();
     const navigate = useNavigate();
+
+    const [deleteItem, setDeleteItem] = useState(undefined);
 
     useEffect(() => {
         async function fetchData() {
@@ -47,9 +49,11 @@ const Admin = (props) => {
         props.setUpdateGood(item)
     }
 
-    const onClickDelete = (id, imgBucket) => {
-        deleteGood(id);
-        deleteImage(imgBucket);
+    const onClickDelete = () => {
+        deleteGood(deleteItem.id);
+        deleteImage(deleteItem.imgBucketURL);
+        setDeleteItem(undefined);
+        props.setAdminAction(undefined)
     }
 
     const onSignOut = () => {
@@ -97,7 +101,7 @@ const Admin = (props) => {
                                 <div className={as.adminItemUpdate} onClick={() => onClickEdit(item)}>
                                     <FontAwesomeIcon icon={faPenToSquare} style={{ color: '#3784ff' }} />
                                 </div>
-                                <div className={as.adminItemDelete} onClick={() => onClickDelete(item.id, item.imgBucketURL)}>
+                                <div className={as.adminItemDelete} onClick={() => {setDeleteItem(item); props.setAdminAction('deleteGood')}}>
                                     <FontAwesomeIcon icon={faTrashCan} style={{ color: '#ff3737' }} />
                                 </div>
                             </div>
@@ -120,6 +124,15 @@ const Admin = (props) => {
             isSubmitting={props.isSubmitting}
             setIsSubmitting={props.setIsSubmitting}
         />
+        <Dialog
+            open={props.adminAction === "deleteGood"}
+            onClose={() => props.setAdminAction(undefined)}>
+            <DialogContent>Ви дійсно бажаєте видалити товар?</DialogContent>
+            <DialogActions>
+                <Button onClick={() => props.setAdminAction(undefined)}>Закрити</Button>
+                <Button onClick={() => onClickDelete()}>Видалити</Button>
+            </DialogActions>
+        </Dialog>
     </div>)
 }
 

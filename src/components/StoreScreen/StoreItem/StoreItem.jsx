@@ -120,7 +120,7 @@ const StoreItem = (props) => {
                 </DialogContent>
                 <DialogActions>
                     <Button variant="contained" onClick={() => { props.setUserAction(undefined); props.setSelectedItem(undefined);  setCount(1);}}>Закрити</Button>
-                    <Button variant="contained" disabled={!count} onClick={() => {props.addGoodToCart(props.selectedItem.id, props.selectedItem.goodName, props.selectedItem.imgURL, count, 120, props.selectedItem.category); props.setSelectedItem(undefined); props.setUserAction(undefined)}}>Додати в кошик</Button>
+                    <Button variant="contained" disabled={!count} onClick={() => {props.addGoodToCart(props.selectedItem.id, props.selectedItem.goodName, props.selectedItem.imgURL, count, props.selectedItem.price, props.selectedItem.category); props.setSelectedItem(undefined); props.setUserAction(undefined); setCount(1)}}>Додати в кошик</Button>
                 </DialogActions>
                 
             </Dialog>

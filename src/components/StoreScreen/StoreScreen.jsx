@@ -8,6 +8,7 @@ import { getGoods } from "../../redux/goods-selectors";
 import { useEffect } from "react";
 import { getGoodsFromFB } from "../../redux/goods-reducer";
 import { connect } from "react-redux";
+import Preloader from './../common/Preloader/Preloader'
 
 const StoreScreen = (props) => {
     const navigate = useNavigate();
@@ -47,7 +48,7 @@ const StoreScreen = (props) => {
                         behavior: 'auto',
                     });
                 }}>
-                    {props.items && props.items.map(item => item.category === cyrGoodCategory() && <StoreItem key={item.id} item={item} />)}
+                    {props.items ? props.items.map(item => item.category === cyrGoodCategory() && <StoreItem key={item.id} item={item} />) : <Preloader />}
                 </div>
             </div>
             <Buttons propArr={buttonsProps} />
