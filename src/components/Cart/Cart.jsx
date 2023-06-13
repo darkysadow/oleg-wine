@@ -15,18 +15,15 @@ const Cart = (props) => {
     const goto = (text) => {
         navigate(text)
     }
-    const checkNominal = (item) => {
-        if (!item.nominal) {
-            if (item.category === 'wine') {
+    const checkNominal = (category) => {
+        console.log(category);
+            if (category === 'вино') {
                 return "л"
-            } else if (item.category === "grape") {
+            } else if (category === "виноград") {
                 return "кг"
             } else {
                 return "шт"
             }
-        } else {
-            return item.nominal
-        }
     }
     const buttonsProps = [
         {
@@ -77,8 +74,8 @@ const Cart = (props) => {
                         <tbody>
                             {props.cart.map(item => (<tr key={item.goodId} className={s.placeorderDialogPosition}>
                                 <td className={s.placeorderDialogPositionTitle}>{item.goodName}</td>
-                                <td className={s.placeorderDialogPositionCount}>{item.count + "" + checkNominal(item)}</td>
-                                <td className={s.placeorderDialogPositionPrice}>{item.price + " грн/" + checkNominal(item)}</td>
+                                <td className={s.placeorderDialogPositionCount}>{item.count + "" + checkNominal(item.category)}</td>
+                                <td className={s.placeorderDialogPositionPrice}>{item.price + " грн/" + checkNominal(item.category)}</td>
                                 <td className={s.placeorderDialogPositionSumm}>{parseInt(item.count * item.price) + " грн"}</td>
                             </tr>))}
                             <tr className={s.placeorderDialogPosition}>

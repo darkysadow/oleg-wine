@@ -49,7 +49,7 @@ const CartItem = (props) => {
             </div>
             <div className={s.cartItemPriceSumm}>
                 <div className={s.cartItemPrice}>
-                    Ціна: {props.price + " грн/" + props.checkNominal(props)} 
+                    Ціна: {props.price + " грн/" + props.checkNominal(props.category)} 
                 </div>
                 <div className={s.cartItemSumm}>
                     Сума: {props.price * props.count} грн
