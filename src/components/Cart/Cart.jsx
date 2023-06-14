@@ -2,13 +2,15 @@ import React from "react";
 import s from './Cart.module.scss';
 import { connect } from "react-redux";
 import { getCart, getOrderForm, getSumm } from "../../redux/cart-selectors";
-import { updateGoodCount, deleteGoodFromCart, clearCart, updateUserOrderField } from "../../redux/cart-reducer";
+import { updateGoodCount, deleteGoodFromCart, clearCart, updateUserOrderField, clearUserOrderField, sendOrder } from "../../redux/cart-reducer";
 import { setUserAction, setDeleteItem } from "../../redux/user-reducer";
 import CartItem from "./CartItem/CartItem";
 import { useNavigate } from 'react-router-dom';
 import Buttons from "../Buttons/Buttons";
 import { getDeleteItem, getUserAction } from "../../redux/user-selectors";
 import { Button, Dialog, DialogActions, DialogContent, TextField, Typography } from "@mui/material";
+import { Field, Form, Formik } from "formik";
+import * as Yup from 'yup';
 
 const Cart = (props) => {
     const navigate = useNavigate();
@@ -16,7 +18,6 @@ const Cart = (props) => {
         navigate(text)
     }
     const checkNominal = (category) => {
-        console.log(category);
             if (category === 'вино') {
                 return "л"
             } else if (category === "виноград") {
@@ -37,7 +38,21 @@ const Cart = (props) => {
             actionByClick: () => props.setUserAction('placeorder')
         }
     ]
-   
+
+    const validationSchema = Yup.object().shape({
+        firstName: Yup.string()
+          .required("Обов'язкове поле")
+          .min(2, "Закоротке значення")
+          .max(50, "Задовге значення"),
+        phoneNumber: Yup.string()
+          .required("Обов'язкове поле")
+          .matches(/^(?:\+380|0)\d{9}$/, "Невірний номер телефону"),
+        email: Yup.string()
+          .email("Невірно введено адресу")
+          .required("Обов'язкове поле")
+      });
+
+    
 
     return (
         <div className='container'>
@@ -93,12 +108,30 @@ const Cart = (props) => {
             <Dialog open={props.userAction === "orderForm"}
                 onClose={() => props.setUserAction(undefined)}
                 className={s.orderForm}>
-                <DialogContent>
-                    
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => {console.log("Submit")}}>Відправити</Button>
-                </DialogActions>
+                <Formik
+                    initialValues={props.orderForm}
+                    onSubmit={() => props.sendOrder(props.orderForm, props.cart, props.summ, props.setUserAction)}
+                    validationSchema={validationSchema}
+                    className={s.orderFormFormik}>
+                        {({errors, touched, setFieldValue}) => (
+                            <Form className={s.orderFormFormikForm}>
+                                <DialogContent className={s.orderFormFormikContent}>
+                                    <Field name='firstName' as={TextField} placeholder="Ваше ім'я" value={props.orderForm.firstName} onChange={(e) => {props.updateUserOrderField(e.target.name, e.target.value); setFieldValue(e.target.name, e.target.value)}} />
+                                    {errors.firstName && touched.firstName && <div className='formErrText'>{errors.firstName}</div>}
+                                    <Field name='phoneNumber' as={TextField} placeholder="Номер телефону" value={props.orderForm.phoneNumber} onChange={(e) => {props.updateUserOrderField(e.target.name, e.target.value); setFieldValue(e.target.name, e.target.value)}} />
+                                    {errors.phoneNumber && touched.phoneNumber && <div className='formErrText'>{errors.phoneNumber}</div>}
+                                    <Field name='email' as={TextField} placeholder="E-mail" value={props.orderForm.email} onChange={(e) => {props.updateUserOrderField(e.target.name, e.target.value); setFieldValue(e.target.name, e.target.value)}}/>
+                                    {errors.email && touched.email && <div className='formErrText'>{errors.email}</div>}
+                                    <Field name='comment' as={TextField} placeholder="Коментар (необов'язково)" value={props.orderForm.comment} onChange={(e) => {props.updateUserOrderField(e.target.name, e.target.value); setFieldValue(e.target.name, e.target.value)}}/>
+                                    {errors.comment && touched.comment && <div className='formErrText'>{errors.comment}</div>}
+                                </DialogContent>
+                                <DialogActions className={s.orderFormFormikButtons}>
+                                    <Button onClick={() => {props.setUserAction(undefined); props.clearUserOrderField()}}>Закрити</Button>
+                                    <Button type="submit">Замовити</Button>
+                                </DialogActions>
+                            </Form>
+                        )}
+                </Formik>
             </Dialog>
             <Dialog
                 open={props.userAction === "orderSuccessfull"}
@@ -122,4 +155,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { updateUserOrderField, updateGoodCount, deleteGoodFromCart, setUserAction, setDeleteItem, clearCart })(Cart);
+export default connect(mapStateToProps, { sendOrder, clearUserOrderField, updateUserOrderField, updateGoodCount, deleteGoodFromCart, setUserAction, setDeleteItem, clearCart })(Cart);

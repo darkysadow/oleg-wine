@@ -1,5 +1,49 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Firebase
+firebase.json
+firebase-debug.log
+firebase-*.json
+
+# Firebase Functions
+functions/node_modules
+functions/.runtimeconfig.json
+
+# Firebase Hosting
+**/public
+**/firebase.json
+
+# Firebase Emulator Suite
+firebase-emulator.log
+
+# Firebase Local Emulator UI
+.emulatorui
+
+# Firebase Security Rules
+firestore.rules
+storage.rules
+
+# Firebase Test Lab
+/test-lab-*.xml
+
+# Firebase Crashlytics
+**/*.pbxproj
+**/*.xcworkspace
+
+# Firebase Performance Monitoring
+android/app/build
+android/captures
+android/fastlane/report.xml
+
+# Firebase ML Kit
+**/*.pb
+
+# Firebase App Check
+appcheck-debug.log
+
+# Firebase App Distribution
+appdistribution-debug.apk
+
 # dependencies
 /node_modules
 /.pnp
@@ -12,6 +56,7 @@
 /build
 
 # misc
+.env
 .DS_Store
 .env.local
 .env.development.local
