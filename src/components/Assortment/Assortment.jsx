@@ -5,6 +5,7 @@ import grape from './../../img/grape.png';
 import dweller from './../../img/dweller.png';
 import Buttons from "../Buttons/Buttons";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Assortment = () => {
     const navigate = useNavigate();
@@ -21,10 +22,14 @@ const Assortment = () => {
             id: 2,
             title: 'Back',
             actionByClick: () => goto('/aboutUs')
-        } 
+        }
     ]
-    return(
-
+    return (<>
+        <Helmet>
+            <title>Асортимент</title>
+            <meta name="description" content="Асортимент товару виноградаря Олега Моісеєнка." />
+            <link rel="canonical" href="/assortment" />
+        </Helmet>
         <div className="container">
             <div className={`${s.assortment} screenHeight`}>
                 <div className={s.assortmentBlock}>
@@ -42,10 +47,10 @@ const Assortment = () => {
                     </div>
                 </div>
             </div>
-            <Buttons propArr={buttonsProps}/>
+            <Buttons propArr={buttonsProps} />
         </div>
 
-    );
+    </>);
 
 }
 

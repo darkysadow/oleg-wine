@@ -10,6 +10,7 @@ import { auth } from "../../utilites/firebase/firebase"
 import useFirebaseAuth, { useAuth } from "../../utilites/firebase/auth"
 import { useEffect } from "react"
 import Preloader from "../common/Preloader/Preloader"
+import { Helmet } from "react-helmet-async"
 
 const Login = (props) => {
     const dispatch = useDispatch();
@@ -38,7 +39,12 @@ const Login = (props) => {
         }
     }
 
-    return (
+    return (<>
+        <Helmet>
+            <title>Авторизація</title>
+            <meta name="description" content="Авторизація в кабінеті адміністратора." />
+            <link rel="canonical" href="/login" />
+        </Helmet>
         <div className="container">
         <div className={`${s.login} adminScreenHeight`}>
             {!isLoading ?
@@ -59,7 +65,7 @@ const Login = (props) => {
             : <Preloader />}
         </div>
     </div> 
-    )
+    </>)
 }
 
 const mapStateToProps = (state) => {

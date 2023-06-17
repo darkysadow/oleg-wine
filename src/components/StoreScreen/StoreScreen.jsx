@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { getGoodsFromFB } from "../../redux/goods-reducer";
 import { connect } from "react-redux";
 import Preloader from './../common/Preloader/Preloader'
+import { Helmet } from "react-helmet-async";
 
 const StoreScreen = (props) => {
     const navigate = useNavigate();
@@ -37,7 +38,12 @@ const StoreScreen = (props) => {
             return 'живці'
         }
     }
-    return (
+    return (<>
+        <Helmet>
+            <title>Каталог товару</title>
+            <meta name="description" content="Асортимент товару виноградаря Олега Моісеєнка." />
+            <link rel="canonical" href="/store" />
+        </Helmet>
         <div className="container">
             <div className={`${s.store} screenHeight`}>
                 <div className={s.storeBlock} onWheel={(e) => {
@@ -53,7 +59,7 @@ const StoreScreen = (props) => {
             </div>
             <Buttons propArr={buttonsProps} />
         </div>
-    );
+        </>);
 }
 
 const mapStateToProps = (state) => {

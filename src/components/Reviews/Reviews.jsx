@@ -4,6 +4,7 @@ import photo from './../../img/review.jpg';
 import Buttons from "../Buttons/Buttons";
 import { useNavigate } from "react-router-dom";
 import SmoothRender from 'react-smooth-render';
+import { Helmet } from "react-helmet-async";
 
 const Reviews = () => {
     const navigate = useNavigate();
@@ -22,7 +23,12 @@ const Reviews = () => {
             actionByClick: () => goto('/partners')
         } 
     ]
-    return(
+    return(<>
+    <Helmet>
+        <title>Відгуки про нас</title>
+        <meta name="description" content="Відгуки зі сторінки виноградаря Олега Моісеєнка." />
+        <link rel="canonical" href="/reviews" />
+    </Helmet>
         <div className="container">
             <div className={`${s.reviews} screenHeight`}>
                 <div className={s.reviewsBlock}>
@@ -31,7 +37,7 @@ const Reviews = () => {
             </div>
             <Buttons propArr={buttonsProps} />
         </div>
-    );
+        </>);
 }
 
 export default Reviews;

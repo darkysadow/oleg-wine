@@ -27,7 +27,6 @@ function App() {
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/assortment" element={<Assortment />} />
           <Route path="/store/:goodCategory" element={<StoreScreen />} />
-          <Route path="/dialog" element={<ItemDialog />} />
           <Route path="/cart" element={<Cart />} />
           <Route path='/admin' element={<Admin />} />
           <Route path='/login' element={<Login />} />

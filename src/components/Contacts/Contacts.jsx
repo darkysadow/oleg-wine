@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram, faTiktok } from "@fortawesome/free-brands-svg-icons";
 import { useNavigate } from "react-router-dom";
 import SmoothRender from 'react-smooth-render';
+import { Helmet } from "react-helmet-async";
 
 const Contacts = () => {
     const navigate = useNavigate();
@@ -19,7 +20,12 @@ const Contacts = () => {
             actionByClick: () => goto('/reviews')
         } 
     ]
-    return(
+    return(<>
+        <Helmet>
+        <title>Контакти</title>
+        <meta name="description" content="Контакти та способи зв`язку з Моісеєнком Олегом." />
+        <link rel="canonical" href="/contacts" />
+    </Helmet>
         <div className="container">
             <div className={`${s.contacts} screenHeight`}>
                 <div className={s.contactsBlock}>
@@ -57,7 +63,7 @@ const Contacts = () => {
                                     </div>
                                 </div>
                                 <div className={s.linksAdress}>
-                                    <p>Вінницька обл. с.Корделівка</p>
+                                    <p><h1>Вінницька обл. с.Корделівка</h1></p>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +76,7 @@ const Contacts = () => {
             <Buttons propArr={buttonsProps} />
         </div>
 
-    )
+    </>)
 }
 
 export default Contacts;

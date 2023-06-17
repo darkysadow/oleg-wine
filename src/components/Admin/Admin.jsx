@@ -19,9 +19,10 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../../utilites/firebase/firebase";
 import Preloader from "../common/Preloader/Preloader";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const Admin = (props) => {
-    const {authUser, isLoading, signOut} = useFirebaseAuth();
+    const { authUser, isLoading, signOut } = useFirebaseAuth();
     const navigate = useNavigate();
 
     const [deleteItem, setDeleteItem] = useState(undefined);
@@ -31,7 +32,7 @@ const Admin = (props) => {
             props.getGoodsFromFB();
             props.getCategories();
         }
-        if(authUser) {
+        if (authUser) {
             fetchData()
         }
         if (!authUser && !isLoading) {
@@ -63,77 +64,84 @@ const Admin = (props) => {
         })
     }
 
-    return (<div className='container'>
-        <div className={`${s.admin} adminScreenHeight`}>
-            {!isLoading ? <>
-            <div className={s.adminAddGood}>
-                <Button onClick={() => onClickAdd()}>Додати товар</Button>
+    return (<>
+        <Helmet>
+            <title>Панель адміністратора</title>
+            <meta name="description" content="Панель адміністратора сайту." />
+            <link rel="canonical" href="/admin" />
+        </Helmet>
+        <div className='container'>
+            <div className={`${s.admin} adminScreenHeight`}>
+                {!isLoading ? <>
+                    <div className={s.adminAddGood}>
+                        <Button onClick={() => onClickAdd()}>Додати товар</Button>
+                    </div>
+                    <div className={s.adminExit}>
+                        <Button onClick={() => onSignOut()}>Вийти з панелі</Button>
+                    </div>
+                    <div className={s.adminBlock}>
+                        {!props.goods ?
+                            <Preloader />
+                            :
+                            props.goods.map(item => (
+                                <div key={item.id} className={as.adminItem}>
+                                    {item.available === false && <div className={as.unavailable}></div>}
+                                    <div className={as.adminItemBlur}></div>
+                                    <div className={as.adminItemImage}>
+                                        <img src={item.imgURL} alt={item.goodName} />
+                                    </div>
+                                    <div className={as.adminItemNameDescription}>
+                                        <div className={as.adminItemTitle}>{item.goodName}</div>
+                                        <div className={as.adminItemDescription}>
+                                            {item.description}
+                                        </div>
+                                    </div>
+                                    <div className={as.adminItemPriceAvailable}>
+                                        <div className={as.adminItemPrice}>
+                                            {item.price} ₴
+                                        </div>
+                                        <div className={as.adminItemAvailable}>
+                                            {item.available === 'true' ? 'Доступно' : 'Недоступно'}
+                                        </div>
+                                    </div>
+                                    <div className={as.adminItemControls}>
+                                        <div className={as.adminItemUpdate} onClick={() => onClickEdit(item)}>
+                                            <FontAwesomeIcon icon={faPenToSquare} style={{ color: '#3784ff' }} />
+                                        </div>
+                                        <div className={as.adminItemDelete} onClick={() => { setDeleteItem(item); props.setAdminAction('deleteGood') }}>
+                                            <FontAwesomeIcon icon={faTrashCan} style={{ color: '#ff3737' }} />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        }
+
+                    </div>
+                </> : <>Preloader</>}
             </div>
-            <div className={s.adminExit}>
-                <Button onClick={() => onSignOut()}>Вийти з панелі</Button>
-            </div>
-            <div className={s.adminBlock}>
-                {!props.goods ?
-                    <Preloader />
-                    :
-                    props.goods.map(item => (
-                        <div key={item.id} className={as.adminItem}>
-                            {item.available === false && <div className={as.unavailable}></div>}
-                            <div className={as.adminItemBlur}></div>
-                            <div className={as.adminItemImage}>
-                                <img src={item.imgURL} alt={item.goodName} />
-                            </div>
-                            <div className={as.adminItemNameDescription}>
-                                <div className={as.adminItemTitle}>{item.goodName}</div>
-                                <div className={as.adminItemDescription}>
-                                    {item.description}
-                                </div>
-                            </div>
-                            <div className={as.adminItemPriceAvailable}>
-                                <div className={as.adminItemPrice}>
-                                    {item.price} ₴
-                                </div>
-                                <div className={as.adminItemAvailable}>
-                                    {item.available === 'true' ? 'Доступно' : 'Недоступно'}
-                                </div>
-                            </div>
-                            <div className={as.adminItemControls}>
-                                <div className={as.adminItemUpdate} onClick={() => onClickEdit(item)}>
-                                    <FontAwesomeIcon icon={faPenToSquare} style={{ color: '#3784ff' }} />
-                                </div>
-                                <div className={as.adminItemDelete} onClick={() => {setDeleteItem(item); props.setAdminAction('deleteGood')}}>
-                                    <FontAwesomeIcon icon={faTrashCan} style={{ color: '#ff3737' }} />
-                                </div>
-                            </div>
-                        </div>
-                    ))
-                }
-                
-            </div>
-            </> : <>Preloader</>}
+            <GoodDialog
+                edit={props.updateGood}
+                showDialog={props.adminAction === 'addGood' || props.adminAction === 'editGood'}
+                formFields={props.formFields}
+                adminAction={props.adminAction}
+                setAdminAction={props.setAdminAction}
+                setFormFields={props.setFormFields}
+                setFormField={props.setFormField}
+                categories={props.categories}
+                isSubmitting={props.isSubmitting}
+                setIsSubmitting={props.setIsSubmitting}
+            />
+            <Dialog
+                open={props.adminAction === "deleteGood"}
+                onClose={() => props.setAdminAction(undefined)}>
+                <DialogContent>Ви дійсно бажаєте видалити товар?</DialogContent>
+                <DialogActions>
+                    <Button onClick={() => props.setAdminAction(undefined)}>Закрити</Button>
+                    <Button onClick={() => onClickDelete()}>Видалити</Button>
+                </DialogActions>
+            </Dialog>
         </div>
-        <GoodDialog
-            edit={props.updateGood}
-            showDialog={props.adminAction === 'addGood' || props.adminAction === 'editGood'}
-            formFields={props.formFields}
-            adminAction={props.adminAction}
-            setAdminAction={props.setAdminAction}
-            setFormFields={props.setFormFields}
-            setFormField={props.setFormField}
-            categories={props.categories}
-            isSubmitting={props.isSubmitting}
-            setIsSubmitting={props.setIsSubmitting}
-        />
-        <Dialog
-            open={props.adminAction === "deleteGood"}
-            onClose={() => props.setAdminAction(undefined)}>
-            <DialogContent>Ви дійсно бажаєте видалити товар?</DialogContent>
-            <DialogActions>
-                <Button onClick={() => props.setAdminAction(undefined)}>Закрити</Button>
-                <Button onClick={() => onClickDelete()}>Видалити</Button>
-            </DialogActions>
-        </Dialog>
-    </div>)
+    </>)
 }
 
 const mapStateToProps = (state) => {
