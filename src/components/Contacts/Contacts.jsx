@@ -17,7 +17,7 @@ const Contacts = () => {
         {
             id: 1,
             title: 'Back',
-            actionByClick: () => goto('/reviews')
+            actionByClick: () => goto('/partners')
         } 
     ]
     return(<>

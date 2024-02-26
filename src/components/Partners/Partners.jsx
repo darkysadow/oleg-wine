@@ -15,8 +15,8 @@ const Partners = () => {
     const buttonsProps = [
         {
             id: 1,
-            title: 'Відгуки про нас',
-            actionByClick: () => goto("/reviews")
+            title: 'Контакти',
+            actionByClick: () => goto("/contacts")
         },
         {
             id: 2,

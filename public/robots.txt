@@ -2,3 +2,17 @@
 User-agent: *
 Disallow: /login
 Disallow: /admin
+
+User-agent: *
+Allow: /
+Allow: /assortment
+Allow: /store
+Allow: /store/wine
+Allow: /store/grape
+Allow: /store/dwellers
+Allow: /aboutUs
+Allow: /partners
+Allow: /contacts
+Allow: /cart
+Allow: /sitemap
+Allow: /sitemap.xml
